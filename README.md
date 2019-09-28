@@ -22,7 +22,7 @@
 
 **Discuss it in the [Community Forum](https://sirix.discourse.group)**
 
-This is the repository for a web frontend based on Vue.js, D3.js and Typescript.
+This is the repository for a web frontend based on [Vue.js](https://vuejs.org), [D3.js](https://d3js.org) and [TypeScript](https://www.typescriptlang.org).
 
 It'll provide several interaction possibilities to, store, update and query databases in SirixDB and furthermore to provide interactive visualizations for exploring and comparing revisions of resources stored in SirixDB.
 
