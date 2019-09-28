@@ -18,12 +18,6 @@
 
 >"Remember that you're lucky, even if you don't think you are, because there's always something that you can be thankful for." - Esther Grace Earl (http://tswgo.org)
 
-<p>&nbsp;</p>
-
-<p align="center"><img src="https://raw.githubusercontent.com/sirixdb/sirix/master/showcase/screencast-three-revisions-faster.gif"/></p>
-
-<p>&nbsp;</p>
-
 **Discuss it in the [Community Forum](https://sirix.discourse.group)**
 
 This is the repository for a web frontend based on Vue.js, D3.js and Typescript.
