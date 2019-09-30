@@ -1,14 +1,13 @@
 <template>
   <div>
-    <h3>History</h3>
-    <span style="width:100px;"></span>
-    <el-row>
-      <el-col :span="2" :offset="1">search:</el-col>
+    <h3>Revision History Metadata</h3>
+    <el-row type="flex" justify="start">
+      <el-col :span="2" :offset="3">search:</el-col>
       <el-col :span="3">
         <el-input v-model="keywords" size="mini" placeholder="commit keywords" />
       </el-col>
     </el-row>
-    <el-table :data="GetShowItems" style="width: 100%">
+    <el-table :data="GetShowItems" class="data-table">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" label="index" width="65"></el-table-column>
       <el-table-column prop="revision" label="revision" width="80"></el-table-column>
@@ -166,7 +165,7 @@ export default {
         recoderShow = filterrecoder.slice(offset, this.pageSize + offset);
       }
       return recoderShow;
-    },
+    }
   },
   methods: {
     SizeChange(val) {
@@ -174,10 +173,15 @@ export default {
     },
     CurrentChange(val) {
       this.currentPage = val;
-    },
+    }
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.data-table {
+  width: 70%;
+  text-align: center;
+  margin: auto;
+}
 </style>
