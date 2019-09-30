@@ -140,20 +140,20 @@ export default {
           revisionTimestamp: "2019-09-19T12:12:43.111Z",
           author: "Marc Kramis",
           commitMessage: "Initial commit"
-        }
+        },
       ],
 
       keywords: "",
-      //pagination
+      // pagination
       currentPage: 1,
       pageSize: 10,
-      total: 0
+      total: 0,
     };
   },
   computed: {
-    GetShowItems: function() {
+    GetShowItems() {
       let recoderShow = [];
-      let filterrecoder = this.history.filter(data => {
+      const filterrecoder = this.history.filter((data) => {
         return (
           !this.keywords ||
           data.commitMessage.toLowerCase().includes(this.keywords.toLowerCase())
@@ -162,11 +162,11 @@ export default {
 
       this.total = filterrecoder.length;
       if (this.total >= 0) {
-        let offset = (this.currentPage - 1) * this.pageSize;
+        const offset = (this.currentPage - 1) * this.pageSize;
         recoderShow = filterrecoder.slice(offset, this.pageSize + offset);
       }
       return recoderShow;
-    }
+    },
   },
   methods: {
     SizeChange(val) {
@@ -174,8 +174,8 @@ export default {
     },
     CurrentChange(val) {
       this.currentPage = val;
-    }
-  }
+    },
+  },
 };
 </script>
 
