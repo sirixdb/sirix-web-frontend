@@ -22,7 +22,10 @@
 This is the repository for a web frontend based on [Vue.js](https://vuejs.org), [D3.js](https://d3js.org) and [TypeScript](https://www.typescriptlang.org).
 
 It'll provide several interaction possibilities to store, update and query databases in SirixDB. Furthermore the front-end will provide interactive visualizations for exploring and comparing revisions of resources stored in SirixDB based on different views.
+## Test and edit in Gitpod
+[![Edit and test in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/sirixdb/sirix-web-frontend)
 
+test and edit this project in a web based VS code environment.
 ## Project setup
 ```
 yarn install
