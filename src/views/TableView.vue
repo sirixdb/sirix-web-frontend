@@ -27,155 +27,160 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      history: [
-        {
-          revision: 3,
-          revisionTimestamp: "2019-09-23T18:25:43.511Z",
-          author: "Johannes Lichtenberger",
-          commitMessage: "Insert a JSON object"
-        },
-        {
-          revision: 2,
-          revisionTimestamp: "2019-09-21T15:22:41.121Z",
-          author: "Marc Kramis",
-          commitMessage: "Remove JSON object record"
-        },
-        {
-          revision: 1,
-          revisionTimestamp: "2019-09-19T12:12:43.111Z",
-          author: "Marc Kramis",
-          commitMessage: "Initial commit"
-        },
-        {
-          revision: 3,
-          revisionTimestamp: "2019-09-23T18:25:43.511Z",
-          author: "Johannes Lichtenberger",
-          commitMessage: "Insert a JSON object"
-        },
-        {
-          revision: 2,
-          revisionTimestamp: "2019-09-21T15:22:41.121Z",
-          author: "Marc Kramis",
-          commitMessage: "Remove JSON object record"
-        },
-        {
-          revision: 1,
-          revisionTimestamp: "2019-09-19T12:12:43.111Z",
-          author: "Marc Kramis",
-          commitMessage: "Initial commit"
-        },
-        {
-          revision: 3,
-          revisionTimestamp: "2019-09-23T18:25:43.511Z",
-          author: "Johannes Lichtenberger",
-          commitMessage: "Insert a JSON object"
-        },
-        {
-          revision: 2,
-          revisionTimestamp: "2019-09-21T15:22:41.121Z",
-          author: "Marc Kramis",
-          commitMessage: "Remove JSON object record"
-        },
-        {
-          revision: 1,
-          revisionTimestamp: "2019-09-19T12:12:43.111Z",
-          author: "Marc Kramis",
-          commitMessage: "Initial commit"
-        },
-        {
-          revision: 3,
-          revisionTimestamp: "2019-09-23T18:25:43.511Z",
-          author: "Johannes Lichtenberger",
-          commitMessage: "Insert a JSON object"
-        },
-        {
-          revision: 2,
-          revisionTimestamp: "2019-09-21T15:22:41.121Z",
-          author: "Marc Kramis",
-          commitMessage: "Remove JSON object record"
-        },
-        {
-          revision: 1,
-          revisionTimestamp: "2019-09-19T12:12:43.111Z",
-          author: "Marc Kramis",
-          commitMessage: "Initial commit"
-        },
-        {
-          revision: 3,
-          revisionTimestamp: "2019-09-23T18:25:43.511Z",
-          author: "Johannes Lichtenberger",
-          commitMessage: "Insert a JSON object"
-        },
-        {
-          revision: 2,
-          revisionTimestamp: "2019-09-21T15:22:41.121Z",
-          author: "Marc Kramis",
-          commitMessage: "Remove JSON object record"
-        },
-        {
-          revision: 1,
-          revisionTimestamp: "2019-09-19T12:12:43.111Z",
-          author: "Marc Kramis",
-          commitMessage: "Initial commit"
-        },
-        {
-          revision: 3,
-          revisionTimestamp: "2019-09-23T18:25:43.511Z",
-          author: "Johannes Lichtenberger",
-          commitMessage: "Insert a JSON object"
-        },
-        {
-          revision: 2,
-          revisionTimestamp: "2019-09-21T15:22:41.121Z",
-          author: "Marc Kramis",
-          commitMessage: "Remove JSON object record"
-        },
-        {
-          revision: 1,
-          revisionTimestamp: "2019-09-19T12:12:43.111Z",
-          author: "Marc Kramis",
-          commitMessage: "Initial commit"
-        },
-      ],
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
-      keywords: "",
-      // pagination
-      currentPage: 1,
-      pageSize: 10,
-      total: 0,
-    };
-  },
-  computed: {
-    GetShowItems() {
-      let recoderShow = [];
-      const filterrecoder = this.history.filter((data) => {
-        return (
-          !this.keywords ||
-          data.commitMessage.toLowerCase().includes(this.keywords.toLowerCase())
-        );
-      });
+interface HistoryItem {
+  revision: number;
+  revisionTimestamp: string;
+  author: string;
+  commitMessage: string;
+}
 
-      this.total = filterrecoder.length;
-      if (this.total >= 0) {
-        const offset = (this.currentPage - 1) * this.pageSize;
-        recoderShow = filterrecoder.slice(offset, this.pageSize + offset);
-      }
-      return recoderShow;
-    }
-  },
-  methods: {
-    SizeChange(val) {
-      this.pageSize = val;
+@Component
+export default class TableView extends Vue {
+  private history: HistoryItem[] = [
+    {
+      revision: 3,
+      revisionTimestamp: "2019-09-23T18:25:43.511Z",
+      author: "Johannes Lichtenberger",
+      commitMessage: "Insert a JSON object"
     },
-    CurrentChange(val) {
-      this.currentPage = val;
+    {
+      revision: 2,
+      revisionTimestamp: "2019-09-21T15:22:41.121Z",
+      author: "Marc Kramis",
+      commitMessage: "Remove JSON object record"
+    },
+    {
+      revision: 1,
+      revisionTimestamp: "2019-09-19T12:12:43.111Z",
+      author: "Marc Kramis",
+      commitMessage: "Initial commit"
+    },
+    {
+      revision: 3,
+      revisionTimestamp: "2019-09-23T18:25:43.511Z",
+      author: "Johannes Lichtenberger",
+      commitMessage: "Insert a JSON object"
+    },
+    {
+      revision: 2,
+      revisionTimestamp: "2019-09-21T15:22:41.121Z",
+      author: "Marc Kramis",
+      commitMessage: "Remove JSON object record"
+    },
+    {
+      revision: 1,
+      revisionTimestamp: "2019-09-19T12:12:43.111Z",
+      author: "Marc Kramis",
+      commitMessage: "Initial commit"
+    },
+    {
+      revision: 3,
+      revisionTimestamp: "2019-09-23T18:25:43.511Z",
+      author: "Johannes Lichtenberger",
+      commitMessage: "Insert a JSON object"
+    },
+    {
+      revision: 2,
+      revisionTimestamp: "2019-09-21T15:22:41.121Z",
+      author: "Marc Kramis",
+      commitMessage: "Remove JSON object record"
+    },
+    {
+      revision: 1,
+      revisionTimestamp: "2019-09-19T12:12:43.111Z",
+      author: "Marc Kramis",
+      commitMessage: "Initial commit"
+    },
+    {
+      revision: 3,
+      revisionTimestamp: "2019-09-23T18:25:43.511Z",
+      author: "Johannes Lichtenberger",
+      commitMessage: "Insert a JSON object"
+    },
+    {
+      revision: 2,
+      revisionTimestamp: "2019-09-21T15:22:41.121Z",
+      author: "Marc Kramis",
+      commitMessage: "Remove JSON object record"
+    },
+    {
+      revision: 1,
+      revisionTimestamp: "2019-09-19T12:12:43.111Z",
+      author: "Marc Kramis",
+      commitMessage: "Initial commit"
+    },
+    {
+      revision: 3,
+      revisionTimestamp: "2019-09-23T18:25:43.511Z",
+      author: "Johannes Lichtenberger",
+      commitMessage: "Insert a JSON object"
+    },
+    {
+      revision: 2,
+      revisionTimestamp: "2019-09-21T15:22:41.121Z",
+      author: "Marc Kramis",
+      commitMessage: "Remove JSON object record"
+    },
+    {
+      revision: 1,
+      revisionTimestamp: "2019-09-19T12:12:43.111Z",
+      author: "Marc Kramis",
+      commitMessage: "Initial commit"
+    },
+    {
+      revision: 3,
+      revisionTimestamp: "2019-09-23T18:25:43.511Z",
+      author: "Johannes Lichtenberger",
+      commitMessage: "Insert a JSON object"
+    },
+    {
+      revision: 2,
+      revisionTimestamp: "2019-09-21T15:22:41.121Z",
+      author: "Marc Kramis",
+      commitMessage: "Remove JSON object record"
+    },
+    {
+      revision: 1,
+      revisionTimestamp: "2019-09-19T12:12:43.111Z",
+      author: "Marc Kramis",
+      commitMessage: "Initial commit"
+    },
+  ];
+
+  private keywords: string = "";
+  // pagination
+  private currentPage: number = 1;
+  private pageSize: number = 10;
+  private total: number = 0;
+
+  get GetShowItems(): HistoryItem[]  {
+    let recoderShow: HistoryItem[] = [];
+    const filterrecoder = this.history.filter((data: HistoryItem) => {
+      return (
+        !this.keywords ||
+        data.commitMessage.toLowerCase().includes(this.keywords.toLowerCase())
+      );
+    });
+
+    this.total = filterrecoder.length;
+    if (this.total >= 0) {
+      const offset = (this.currentPage - 1) * this.pageSize;
+      recoderShow = filterrecoder.slice(offset, this.pageSize + offset);
     }
-  },
-};
+    return recoderShow;
+  }
+
+  private SizeChange(val: number) {
+    this.pageSize = val;
+  }
+
+  private CurrentChange(val: number) {
+    this.currentPage = val;
+  }
+}
 </script>
 
 <style lang="scss">
