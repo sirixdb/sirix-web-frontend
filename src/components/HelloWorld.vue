@@ -3,11 +3,10 @@
     <el-row>
       <el-col :span="12" :offset="6">
         <el-card class="box-card">
-          <h1>SIRIXDB</h1>SIRIXDB IS A LOG-STRUCTURED TEMPORAL NOSQL DOCUMENT STORE
-          WHICH STORES THE HISTORIES OF ALL RESOURCES IN A SPACE-EFFICIENT MANNER.
-          IT SUPPORTS THE EFFICIENT RECONSTRUCTION OF ANY REVISION AS WELL AS COMPARISONS.
-          A QUERY PROCESSOR SUPPORTS SOPHISTICATED TIME TRAVEL QUERIES.
-          SEE THE OPEN SOURCE REPOSITORY.
+          <h1>SirixDB</h1>SirixDB is a log-structured temporal, versioned NoSQL document store which stores the histories of all resources in a space-efficient manner.
+It supports the efficient reconstruction of any revision as well as comparisons thereof.
+A query processor supports sophisticated time travel queries.
+See the <a href="https://github.com/sirixdb/sirix">open source repository</a>.
         </el-card>
       </el-col>
     </el-row>
