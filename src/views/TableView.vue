@@ -28,149 +28,28 @@
 </template>
 
 <script lang="ts">
+import { Inject } from 'inversify-props';
+import HistoryItem from '@/models/historyItem';
+import IDataService from '@/services/IDataService';
 import { Component, Prop, Vue } from 'vue-property-decorator';
-
-interface HistoryItem {
-  revision: number;
-  revisionTimestamp: string;
-  author: string;
-  commitMessage: string;
-}
 
 @Component
 export default class TableView extends Vue {
-  private history: HistoryItem[] = [
-    {
-      revision: 3,
-      revisionTimestamp: "2019-09-23T18:25:43.511Z",
-      author: "Johannes Lichtenberger",
-      commitMessage: "Insert a JSON object"
-    },
-    {
-      revision: 2,
-      revisionTimestamp: "2019-09-21T15:22:41.121Z",
-      author: "Marc Kramis",
-      commitMessage: "Remove JSON object record"
-    },
-    {
-      revision: 1,
-      revisionTimestamp: "2019-09-19T12:12:43.111Z",
-      author: "Marc Kramis",
-      commitMessage: "Initial commit"
-    },
-    {
-      revision: 3,
-      revisionTimestamp: "2019-09-23T18:25:43.511Z",
-      author: "Johannes Lichtenberger",
-      commitMessage: "Insert a JSON object"
-    },
-    {
-      revision: 2,
-      revisionTimestamp: "2019-09-21T15:22:41.121Z",
-      author: "Marc Kramis",
-      commitMessage: "Remove JSON object record"
-    },
-    {
-      revision: 1,
-      revisionTimestamp: "2019-09-19T12:12:43.111Z",
-      author: "Marc Kramis",
-      commitMessage: "Initial commit"
-    },
-    {
-      revision: 3,
-      revisionTimestamp: "2019-09-23T18:25:43.511Z",
-      author: "Johannes Lichtenberger",
-      commitMessage: "Insert a JSON object"
-    },
-    {
-      revision: 2,
-      revisionTimestamp: "2019-09-21T15:22:41.121Z",
-      author: "Marc Kramis",
-      commitMessage: "Remove JSON object record"
-    },
-    {
-      revision: 1,
-      revisionTimestamp: "2019-09-19T12:12:43.111Z",
-      author: "Marc Kramis",
-      commitMessage: "Initial commit"
-    },
-    {
-      revision: 3,
-      revisionTimestamp: "2019-09-23T18:25:43.511Z",
-      author: "Johannes Lichtenberger",
-      commitMessage: "Insert a JSON object"
-    },
-    {
-      revision: 2,
-      revisionTimestamp: "2019-09-21T15:22:41.121Z",
-      author: "Marc Kramis",
-      commitMessage: "Remove JSON object record"
-    },
-    {
-      revision: 1,
-      revisionTimestamp: "2019-09-19T12:12:43.111Z",
-      author: "Marc Kramis",
-      commitMessage: "Initial commit"
-    },
-    {
-      revision: 3,
-      revisionTimestamp: "2019-09-23T18:25:43.511Z",
-      author: "Johannes Lichtenberger",
-      commitMessage: "Insert a JSON object"
-    },
-    {
-      revision: 2,
-      revisionTimestamp: "2019-09-21T15:22:41.121Z",
-      author: "Marc Kramis",
-      commitMessage: "Remove JSON object record"
-    },
-    {
-      revision: 1,
-      revisionTimestamp: "2019-09-19T12:12:43.111Z",
-      author: "Marc Kramis",
-      commitMessage: "Initial commit"
-    },
-    {
-      revision: 3,
-      revisionTimestamp: "2019-09-23T18:25:43.511Z",
-      author: "Johannes Lichtenberger",
-      commitMessage: "Insert a JSON object"
-    },
-    {
-      revision: 2,
-      revisionTimestamp: "2019-09-21T15:22:41.121Z",
-      author: "Marc Kramis",
-      commitMessage: "Remove JSON object record"
-    },
-    {
-      revision: 1,
-      revisionTimestamp: "2019-09-19T12:12:43.111Z",
-      author: "Marc Kramis",
-      commitMessage: "Initial commit"
-    },
-  ];
 
+  @Inject()
+  private dataService!: IDataService;
   private keywords: string = "";
+
   // pagination
   private currentPage: number = 1;
   private pageSize: number = 10;
   private total: number = 0;
 
   get GetShowItems(): HistoryItem[]  {
-    let recoderShow: HistoryItem[] = [];
-    const filterrecoder = this.history.filter((data: HistoryItem) => {
-      return (
-        !this.keywords ||
-        data.commitMessage.toLowerCase().includes(this.keywords.toLowerCase())
-      );
-    });
-
-    this.total = filterrecoder.length;
-    if (this.total >= 0) {
-      const offset = (this.currentPage - 1) * this.pageSize;
-      recoderShow = filterrecoder.slice(offset, this.pageSize + offset);
-    }
-    return recoderShow;
+    const offset = (this.currentPage - 1) * this.pageSize;
+    const response = this.dataService.getHistory(this.keywords, offset, this.pageSize);
+    this.total = response.total;
+    return response.data;
   }
 
   private SizeChange(val: number) {
