@@ -38,14 +38,10 @@
 
 <script lang="ts">
 import "@/mock/index.js";
-import { Component, Prop, Vue } from "vue-property-decorator";
-
-interface HistoryItem {
-  revision: number;
-  revisionTimestamp: string;
-  author: string;
-  commitMessage: string;
-}
+import { Inject } from 'inversify-props';
+import HistoryItem from '@/models/historyItem';
+import IDataService from '@/services/IDataService';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class TableView extends Vue {
@@ -64,7 +60,10 @@ export default class TableView extends Vue {
     }
   ];
 
+  @Inject()
+  private dataService!: IDataService;
   private keywords: string = "";
+
   // pagination
   private currentPage: number = 1;
   private pageSize: number = 50;

@@ -8,6 +8,7 @@ import "./registerServiceWorker";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import locale from "element-ui/lib/locale/lang/en";
+import buildDependencyContainer from "./app.container";
 Vue.use(ElementUI, { locale });
 
 // $axios for http req
@@ -34,6 +35,8 @@ axios.defaults.baseURL = "http://localhost:3002/";
 Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false;
+
+buildDependencyContainer();
 
 new Vue({
   router,
