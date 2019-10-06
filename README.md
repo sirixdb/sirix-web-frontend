@@ -27,29 +27,20 @@ It'll provide several interaction possibilities to store, update and query datab
 
 test and edit this project in a web based VS code environment.
 ## Project setup
-```
-yarn install
-```
+``` bash
+# install dependencies
+$ npm run install
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+# serve with hot reload at localhost:3000
+$ npm run dev
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+# build for production and launch server
+$ npm run build
+$ npm run start
 
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
+# generate static project
+$ npm run generate
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
