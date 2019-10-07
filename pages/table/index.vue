@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import { Inject } from "inversify-props";
-import HistoryItem from "@/models/historyItem";
+import HistoryItem from "@/models/HistoryItem";
 import IDataService from "@/services/IDataService";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import axios from "~/plugins/axios";
