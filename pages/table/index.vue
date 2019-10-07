@@ -60,7 +60,7 @@ export default class TableView extends Vue {
   private created() {
     this.fetchRevisionCounts().then(total => {
       this.total = total;
-      this.fetchRevisionPaged(total, 0);
+      this.fetchRevisionPaged(total, 1, this.pageSize);
     });
   }
 
@@ -78,11 +78,23 @@ export default class TableView extends Vue {
       });
   }
 
-  private fetchRevisionPaged(total: number, page: number): void {
-    axios.get("/api/history", { page }).then((res: any) => {
-      // console.log(res);
-      this.history = res.data;
-    });
+  private fetchRevisionPaged(
+    total: number,
+    page: number,
+    pageSize: number
+  ): void {
+    axios
+      .get("/api/history", {
+        params: {
+          total: total,
+          page: page,
+          pageSize: pageSize
+        }
+      })
+      .then((res: any) => {
+        // console.log(res);
+        this.history = res.data;
+      });
   }
 
   private SizeChange(val: number) {
@@ -91,7 +103,7 @@ export default class TableView extends Vue {
 
   private CurrentChange(val: number) {
     this.currentPage = val;
-    this.fetchRevisionPaged(this.total, val);
+    this.fetchRevisionPaged(this.total, val, this.pageSize);
   }
 }
 </script>
