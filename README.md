@@ -29,7 +29,7 @@ test and edit this project in a web based VS code environment.
 ## Project setup
 We currently have the following issue: https://github.com/sirixdb/sirix-web-frontend/issues/18
 
-For setting up the HTTP-Server, have a look into the documentation for the [REST-API](https://sirix.io/rest-api.html).
+For setting up the HTTP-Server together with a Keycloak-Server, have a look into the documentation for the [REST-API](https://sirix.io/rest-api.html).
 
 ``` bash
 # install dependencies
