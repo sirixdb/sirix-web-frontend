@@ -31,6 +31,12 @@ We currently have the following issue: https://github.com/sirixdb/sirix-web-fron
 
 For setting up the HTTP-Server together with a Keycloak-Server, have a look into the documentation for the [REST-API](https://sirix.io/rest-api.html).
 
+You could also 
+
+1. `git clone https://github.com/sirixdb/sirix.git`
+2. run `docker-compose up -d` from the [REST-API Bundle](https://github.com/sirixdb/sirix/tree/master/bundles/sirix-rest-api)
+2. import our [test Keycloak realm configuration JSON file](https://github.com/sirixdb/sirix/tree/master/bundles/sirix-rest-api/src/test/resources) in the Keycloak Web-UI
+
 ``` bash
 # install dependencies
 $ npm run install
