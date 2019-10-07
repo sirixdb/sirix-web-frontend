@@ -1,0 +1,15 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [{
+        "label": "push dev before pr",
+        "type": "shell",
+        "command": "git checkout dev && git pull dev master:dev && git push dev dev:master"
+    }, {
+        "label": "sync after pr",
+        "type": "shell",
+        "command": "git checkout master && git pull && git checkout dev && git merge master && git push dev dev:master"
+    }]
+
+}
