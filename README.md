@@ -27,29 +27,32 @@ It'll provide several interaction possibilities to store, update and query datab
 
 test and edit this project in a web based VS code environment.
 ## Project setup
-```
-yarn install
-```
+We currently have the following issue: https://github.com/sirixdb/sirix-web-frontend/issues/18
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+For setting up the HTTP-Server together with a Keycloak-Server, have a look into the documentation for the [REST-API](https://sirix.io/rest-api.html).
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+You could also use docker-compose.
 
-### Run your tests
-```
-yarn run test
-```
+1. `git clone https://github.com/sirixdb/sirix.git`
+2. run `docker-compose up -d` from the [REST-API Bundle](https://github.com/sirixdb/sirix/tree/master/bundles/sirix-rest-api)
+2. import our [test Keycloak realm configuration JSON file](https://github.com/sirixdb/sirix/tree/master/bundles/sirix-rest-api/src/test/resources) in the Keycloak Web-UI
 
-### Lints and fixes files
-```
-yarn run lint
+For setting up the web frontend:
+
+``` bash
+# install dependencies
+$ npm run install
+
+# serve with hot reload at localhost:3000
+$ npm run dev
+
+# build for production and launch server
+$ npm run build
+$ npm run start
+
+# generate static project
+$ npm run generate
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
