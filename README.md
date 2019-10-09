@@ -27,7 +27,7 @@ It'll provide several interaction possibilities to store, update and query datab
 
 test and edit this project in a web based VS code environment.
 ## Project setup
-**We currently face the following [issue](https://github.com/sirixdb/sirix-web-frontend/issues/18) -- [Workaround](https://github.com/nuxt/typescript/issues/49#issuecomment-531086770)**
+**We currently face the following [issue](https://github.com/sirixdb/sirix-web-frontend/issues/18), whereas the [Workaround](https://github.com/nuxt/typescript/issues/49#issuecomment-531086770) works until Nuxt.js or Element-Hi fix the issue**
 
 For setting up the HTTP-Server together with a Keycloak-Server, have a look into the documentation for the [REST-API](https://sirix.io/rest-api.html).
 
