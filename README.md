@@ -25,7 +25,7 @@ It'll provide several interaction possibilities to store, update and query datab
 ## Test and edit in Gitpod
 [![Edit and test in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/sirixdb/sirix-web-frontend)
 
-test and edit this project in a web based VS code environment.
+Test and edit this project in a web based VS code environment.
 ## Project setup
 **We currently face the following [issue](https://github.com/sirixdb/sirix-web-frontend/issues/18), whereas the [Workaround](https://github.com/nuxt/typescript/issues/49#issuecomment-531086770) works until Nuxt.js or Element-Hi fix the issue**
 
