@@ -22,6 +22,10 @@
 This is the repository for a web frontend based on [Vue.js](https://vuejs.org), [D3.js](https://d3js.org) and [TypeScript](https://www.typescriptlang.org).
 
 It'll provide several interaction possibilities to store, update and query databases in SirixDB. Furthermore the front-end will provide interactive visualizations for exploring and comparing revisions of resources stored in SirixDB based on different views.
+
+**Some ideas for comparing revisions of the XML or JSON resources, which need to be ported from a Java GUI/Processing can be found in my [Master's Theses](
+https://github.com/JohannesLichtenberger/master-thesis/blob/master/Master/Thesis/thesis.pdf) and in a [Screencast](http://www.youtube.com/watch?v=l9CXXBkl5vI).**
+
 ## Test and edit in Gitpod
 [![Edit and test in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/sirixdb/sirix-web-frontend)
 
