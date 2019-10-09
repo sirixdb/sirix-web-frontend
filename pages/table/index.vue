@@ -39,7 +39,6 @@ import axios from "~/plugins/axios";
 import "~/mock/mock.js";
 @Component
 export default class TableView extends Vue {
-  @Inject()
   private dataService!: IDataService;
   private keywords: string = "";
 
