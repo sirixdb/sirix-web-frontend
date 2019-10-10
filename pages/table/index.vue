@@ -15,7 +15,7 @@
       <el-table-column type="index" label="index" width="65"></el-table-column>
       <el-table-column prop="revision" label="revision" width="80"></el-table-column>
       <el-table-column prop="revisionTimestamp" label="time" width="220"></el-table-column>
-      <el-table-column prop="author" label="author"></el-table-column>
+      <el-table-column prop="author" label="author" width="140"></el-table-column>
       <el-table-column prop="commitMessage" label="commit"></el-table-column>
     </el-table>
     <el-pagination

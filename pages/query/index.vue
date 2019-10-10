@@ -24,18 +24,17 @@
           </el-tab-pane>
           <el-tab-pane label="XML View">
             <el-card class="box-card">
-              <highlight :code="formatXML()"></highlight>
+              <highlight :code="XML"></highlight>
             </el-card>
           </el-tab-pane>
           <el-tab-pane label="Tree View">
             <el-card class="box-card">
-              <el-tree
-                class="filter-tree"
-                :data="data"
-                :props="defaultProps"
-                default-expand-all
-                ref="tree"
-              ></el-tree>
+              <el-tree :props="treeProps" :data="data" default-expand-all ref="tree">
+                <span class="custom-tree-node" slot-scope="{ node, data }">
+                  <span>{{ node.label }}</span>
+                  <span v-show="data.value">: {{ data.value}}</span>
+                </span>
+              </el-tree>
             </el-card>
           </el-tab-pane>
         </el-tabs>
@@ -50,6 +49,8 @@ import highlight from "~/components/CodeHighLight/index.vue";
 
 import axios from "~/plugins/axios";
 import "~/mock/mock.js";
+import json2Tree from "./json2tree";
+import json2xml from "./json2xml";
 @Component({
   components: {
     highlight
@@ -58,97 +59,61 @@ import "~/mock/mock.js";
 export default class TableView extends Vue {
   // pagination
   private queryString: String = "";
-  private result: String = "result here";
-  private data = [
-    {
-      id: 1,
-      label: "first level 1",
-      children: [
-        {
-          id: 4,
-          label: "second level 1-1",
-          children: [
-            {
-              id: 9,
-              label: "third level 1-1-1"
-            },
-            {
-              id: 10,
-              label: "third level 1-1-2"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      id: 2,
-      label: "first level 2",
-      children: [
-        {
-          id: 5,
-          label: "second level 2-1"
-        },
-        {
-          id: 6,
-          label: "second level 2-2"
-        }
-      ]
-    },
-    {
-      id: 3,
-      label: "first level 3",
-      children: [
-        {
-          id: 7,
-          label: "second level 3-1"
-        },
-        {
-          id: 8,
-          label: "second level 3-2"
-        }
-      ]
-    }
-  ];
-  private defaultProps = {
-    children: "children",
-    label: "label"
+  private result: String = "result here. click Run button.";
+  private data = [];
+  private XML = "";
+
+  private treeProps = {
+    label: "nodeName",
+    children: "children"
   };
 
+  private mounted() {
+    this.query(this.queryString);
+  }
   private query(queryString: String): void {
     axios
-      .get("/api/search", {
+      .get("/api/json", {
         params: {
           string: queryString
         }
       })
       .then((res: any) => {
-        // console.log(res);
+        console.log(res);
         this.result = res.data;
+        var json = JSON.parse(res.data);
+        var data = {
+          data: json
+        };
+        this.data = this.formatTree(data);
+
+        this.XML = this.formatXML(data);
       });
   }
   private formatRaw() {
     return "raw view";
   }
   private formatJSON() {
-    return `{
-    data: {
-        num: 5
-    },
-    name: "jack"
-}`;
+    return this.result;
   }
-  private formatXML() {
-    return `<ul>
-  <li class="li-1"><p>Hello</p></li>
-  <li>
-    <span style="color: red;">
-      Hello
-    </span>
-  </li>
-</ul>`;
+
+  private formatXML(json: any) {
+    var xml = json2xml(json);
+
+    return xml;
+    //     return `<ul>
+    //   <li class="li-1"><p>Hello</p></li>
+    //   <li>
+    //     <span style="color: red;">
+    //       Hello
+    //     </span>
+    //   </li>
+    // </ul>`;
   }
-  private formatTree() {
-    return "raw view";
+  private formatTree(obj: any) {
+    var data = json2Tree({ xml: obj });
+
+    return data;
   }
 }
 </script>
