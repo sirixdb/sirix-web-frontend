@@ -31,8 +31,11 @@
             <el-card class="box-card">
               <el-tree :props="treeProps" :data="data" default-expand-all ref="tree">
                 <span class="custom-tree-node" slot-scope="{ node, data }">
-                  <span>{{ node.label }}</span>
-                  <span v-show="data.value">: {{ data.value}}</span>
+                  <span class="node_name">{{ node.label }}</span>:
+                  <span
+                    v-show="data.value"
+                    :class="{ isString: typeof(data.value)=='string' }"
+                  >{{ data.value}}</span>
                 </span>
               </el-tree>
             </el-card>
@@ -60,7 +63,7 @@ export default class TableView extends Vue {
   // pagination
   private queryString: String = "";
   private result: String = "result here. click Run button.";
-  private data = [];
+  private data: never[] = [];
   private XML = "";
 
   private treeProps = {
@@ -125,6 +128,15 @@ export default class TableView extends Vue {
   margin: auto;
   .result {
     margin-top: 20px;
+    .node_name {
+      color: rgb(103, 103, 255);
+    }
+    .isString {
+      color: brown;
+    }
+    .isNum {
+      color: black;
+    }
   }
   .box-card {
     margin: 15px 0;
