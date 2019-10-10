@@ -1,0 +1,17 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "push dev to folked repository",
+      "type": "shell",
+      "command": "git checkout dev ;  git push dev dev:master"
+    },
+    {
+      "label": "sync from the origin repository",
+      "type": "shell",
+      "command": "git checkout master ; git pull ; git checkout dev ; git merge master "
+    }
+  ]
+}
