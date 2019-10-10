@@ -22,20 +22,18 @@
 This is the repository for a web frontend based on [Vue.js](https://vuejs.org), [D3.js](https://d3js.org) and [TypeScript](https://www.typescriptlang.org).
 
 It'll provide several interaction possibilities to store, update and query databases in SirixDB. Furthermore the front-end will provide interactive visualizations for exploring and comparing revisions of resources stored in SirixDB based on different views.
+
+**Some ideas for comparing revisions of the XML or JSON resources, which need to be ported from a Java GUI/Processing can be found in my [Master's Theses](
+https://github.com/JohannesLichtenberger/master-thesis/blob/master/Master/Thesis/thesis.pdf) and in a [Screencast](http://www.youtube.com/watch?v=l9CXXBkl5vI).**
+
 ## Test and edit in Gitpod
 [![Edit and test in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/sirixdb/sirix-web-frontend)
 
-test and edit this project in a web based VS code environment.
+Test and edit this project in a web based VS code environment.
 ## Project setup
-We currently have the following issue: https://github.com/sirixdb/sirix-web-frontend/issues/18
+**We currently face the following [issue](https://github.com/sirixdb/sirix-web-frontend/issues/18), whereas this [workaround](https://github.com/nuxt/typescript/issues/49#issuecomment-531086770) works until Nuxt.js or Element-UI fix the issue**
 
 For setting up the HTTP-Server together with a Keycloak-Server, have a look into the documentation for the [REST-API](https://sirix.io/rest-api.html).
-
-You could also use docker-compose.
-
-1. `git clone https://github.com/sirixdb/sirix.git`
-2. run `docker-compose up -d` from the [REST-API Bundle](https://github.com/sirixdb/sirix/tree/master/bundles/sirix-rest-api)
-2. import our [test Keycloak realm configuration JSON file](https://github.com/sirixdb/sirix/tree/master/bundles/sirix-rest-api/src/test/resources) in the Keycloak Web-UI
 
 For setting up the web frontend:
 
