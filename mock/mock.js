@@ -70,9 +70,10 @@ var jsonData = function() {
   ],
   "likes":{
     "sport":{
-      "name":{
-        "sportname":"football"
-      }
+      "name":[
+        {"sportname":"football"},
+        {"sportname":"basketball"}
+      ]
     }
   }
 }`
