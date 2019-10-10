@@ -63,7 +63,7 @@ export default class TableView extends Vue {
   // pagination
   private queryString: String = "";
   private result: String = "result here. click Run button.";
-  private data: never[] = [];
+  private data: any[] = [];
   private XML = "";
 
   private treeProps = {
