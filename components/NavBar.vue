@@ -1,6 +1,6 @@
 <template>
   <el-menu mode="horizontal" :router="true" class="nav">
-    <el-menu-item index="/" to="/">
+    <el-menu-item>
       <img class="nav-logo" alt="SirixDB" src="../assets/logo.png" />
     </el-menu-item>
     <el-menu-item index="/" to="/">Home</el-menu-item>
