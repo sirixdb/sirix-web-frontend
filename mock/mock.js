@@ -70,9 +70,42 @@ var jsonData = function() {
   ],
   "likes":{
     "sport":{
-      "name":{
-        "sportname":"football"
-      }
+      "name":[
+        {"sportname":"football"},
+        {"sportname":"basketball"}
+      ]
+    }
+  }
+}`
+
+  return _data
+}
+
+var compareJson = function() {
+  let _data = `{
+  "name": "Jeremy Dorn1",
+  "age": 35,
+  "gender": "male",
+  "t":"t",
+  "location": {
+    "state": "CA",
+    "citystate": "San Francisco, CA"
+  },
+  "pets": [
+    {
+      "type": "dog",
+      "name": "Walter"
+    },{
+      "type": "cat",
+      "name": "Queen"
+    }
+  ],
+  "likes":{
+    "sport":{
+      "name":[
+        {"sportname":"football"},
+        {"sportname":"basketball"}
+      ]
     }
   }
 }`
@@ -84,3 +117,4 @@ var jsonData = function() {
 Mock.mock(RegExp('http://localhost:3002/api/history.*'), 'get', listData)
 Mock.mock('http://localhost:3002/api/counts', 'get', countData)
 Mock.mock(RegExp('http://localhost:3002/api/json.*'), 'get', jsonData)
+Mock.mock(RegExp('http://localhost:3002/api/comparejson.*'), 'get', compareJson)

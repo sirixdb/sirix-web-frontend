@@ -31,7 +31,7 @@ function bulid(nodes) {
       })
     })
   }
-  var root = { name: '', label: '', children: [] }
+  var root = {name: '', label: '', children: []}
 
   if (topNodes.length == 1) {
     root = topNodes[0]
@@ -97,12 +97,32 @@ function getNodes(curObj, parentKey = '', idx = 0, obj) {
     }
   }
 }
+function addArrayMiddle(curName, parentKey = '', idx = 0, obj) {
+  let formObj = {
+    name: '',
+    label: '',
+    parentName: '',
+    nodeName: '',
+    children: []
+  }
+
+  let nodeName = ''
+
+  nodeName = parentKey + (parentKey === '' ? '' : '>') + curName
+  formObj.label = `key:Array`
+  formObj.name = nodeName
+  formObj.parentName = parentKey
+  formObj.nodeName = curName
+
+  obj.nodes.push(formObj)
+}
 
 function getNodesArr(curArr, parentKey = '', idx = 0, obj) {
   if (curArr.length !== 0) {
     curArr.forEach((val, index) => {
       if (isObject(val)) {
-        getNodes(val, parentKey, idx + 1, obj)
+        addArrayMiddle(`[${index}]`, parentKey, idx + 1 + 2 * index, obj)
+        getNodes(val, parentKey + `>[${index}]`, idx + 2 + 2 * index, obj)
       } else if (Array.isArray(val)) {
         getNodesArr(val, parentKey, idx + 1, obj)
       }

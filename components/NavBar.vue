@@ -7,5 +7,6 @@
     <el-menu-item index="/about" to="about">About</el-menu-item>
     <el-menu-item index="/table" to="table">Table</el-menu-item>
     <el-menu-item index="/query" to="query">Query</el-menu-item>
+    <el-menu-item index="/compare" to="compare">Compare</el-menu-item>
   </el-menu>
 </template>
