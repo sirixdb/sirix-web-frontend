@@ -13,7 +13,7 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-button type="primary" @click="query(queryString)">RUN</el-button>
+    <el-button type="primary" @click="query(queryString)">Compare</el-button>
   </div>
 </template>
 

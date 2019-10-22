@@ -4,8 +4,8 @@ export default {
    ** Headers of the page
    */
   server: {
-    port: 3005 // default: 3000
-    // host: "0.0.0.0" // default: localhost
+    port: 3005, // default: 3000
+    host: "0.0.0.0" // default: localhost
   },
   head: {
     title: process.env.npm_package_name || '',
@@ -44,7 +44,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/element-ui', '@/plugins/dependencyContainer.ts'],
+  plugins: ['@/plugins/element-ui', '@/plugins/dependencyContainer.ts', '@/plugins/axios'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -52,7 +52,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/pwa'],
+  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'https://localhost:9443' }], '@nuxtjs/auth', '@nuxtjs/proxy'],
   /*
    ** Build configuration
    */
@@ -62,6 +62,43 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
-  }
+    extend: function (config, {isDev, isClient}) {
+      config.node = {
+        fs: "empty"
+      };
+    }
+  },
+  axios: {
+    baseURL: 'https://127.0.0.1:9443',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    proxyHeaders: true
+  },
+  auth: {
+    strategies: {
+      social: {
+        _scheme: 'oauth2',
+        authorization_endpoint: '/user/authorize',
+        userinfo_endpoint: false,
+        scope: ['create','view','modify','delete'],
+        access_type: 'offline',
+        access_token_endpoint: '/token',
+        response_type: 'code',
+        token_type: 'Bearer',
+        redirect_uri: '/',
+        client_id: 'sirix',
+        token_key: 'access_token',
+        state: 'UNIQUE_AND_NON_GUESSABLE'
+      }
+    }
+  },
+  router: {
+    middleware: ['auth']
+  },
+  /* proxy: {
+    '/user/authorize': {
+      target: 'https://127.0.0.1:9443/user/authorize',
+    }
+  } */
 }
