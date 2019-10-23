@@ -14,11 +14,11 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class Login extends Vue {
   private login(): void {
     console.log("bla")
-  /*  axios
-      .get("/user/authorize", {})
+    this.$axios
+      .$get("https://localhost:9443/user/authorize", {})
       .then((res: any) => {
         console.log(res);
-      }); */
+      });
   }
 }
 </script>

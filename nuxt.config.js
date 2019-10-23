@@ -73,7 +73,8 @@ export default {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
-    proxyHeaders: true
+    proxyHeaders: true,
+    proxy: true
   },
   auth: {
     strategies: {
