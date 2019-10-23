@@ -21,7 +21,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import highlight from "~/components/CodeHighLight/index.vue";
 
-import axios from "~/plugins/axios";
+//import axios from "~/plugins/axios";
 import "~/mock/mock.js";
 
 @Component({
@@ -44,7 +44,7 @@ export default class TableView extends Vue {
     this.query(this.queryString);
   }
   private query(queryString: String): void {
-    axios
+    this.$axios
       .get("/api/json", {
         params: {
           string: queryString
@@ -53,7 +53,7 @@ export default class TableView extends Vue {
       .then((res: any) => {
         console.log(res);
         this.jsonLeft = res.data.toString(16);
-        axios
+        this.$axios
           .get("/api/comparejson", {
             params: {
               string: queryString

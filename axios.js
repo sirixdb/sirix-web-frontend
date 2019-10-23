@@ -1,10 +1,9 @@
 import axios from 'axios'
 import https from 'https'
-
-var fs = require('fs');
+import fs from 'fs'
 
 // set baseURL
-axios.defaults.baseURL = 'https://localhost:9443'
+// axios.defaults.baseURL = 'https://localhost:9443'
 
 let options = {
   httpsAgent: new https.Agent({
