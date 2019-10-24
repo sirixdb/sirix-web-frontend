@@ -70,6 +70,7 @@ export default {
   },
   axios: {
     baseURL: 'https://127.0.0.1:9443',
+    browserBaseURL: 'https://127.0.0.1:9443',
     headers: {
       'Access-Control-Allow-Origin': '*',
     },

@@ -8,14 +8,12 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 
-//import axios from "~/plugins/axios";
-
 @Component
 export default class Login extends Vue {
   private login(): void {
     console.log("bla")
     this.$axios
-      .$get("https://localhost:9443/user/authorize", {})
+      .$get("/user/authorize", {})
       .then((res: any) => {
         console.log(res);
       });
