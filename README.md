@@ -33,9 +33,38 @@ Test and edit this project in a web based VS code environment.
 ## Project setup
 **We currently face the following [issue](https://github.com/sirixdb/sirix-web-frontend/issues/18), whereas this [workaround](https://github.com/nuxt/typescript/issues/49#issuecomment-531086770) works until Nuxt.js or Element-UI fix the issue**
 
-For setting up the HTTP-Server together with a Keycloak-Server, have a look into the documentation for the [REST-API](https://sirix.io/rest-api.html).
+We've created a `Dockerfile` and a `docker-compose.yml` file to simplify the setup process. However you still have to setup Keycloak as desribed in the documentation for the REST-API (especially assigning the roles to an admin-user):
 
-For setting up the web frontend:
+In order to use the `docker-compose`:
+
+1. `mkdir sirixdb`
+2. `git clone https://github.com/sirixdb/sirix.git`
+3. `git clone https://github.com/sirixdb/sirix-web-frontend.git`
+4. Copy the `docker-compose.yml` file from `sirix-web-frontend` to your `sirixdb` parent folder.
+4. In `sirix/bundles/sirix-rest-api/src/main/resources` change the `sirix-conf.json` to:
+   ```json
+   {
+     "https.port": 9443,
+     "keycloak.url": "http://keycloak:8080/auth/realms/sirixdb",
+     "auth-server-url": "http://keycloak:8080/auth",
+     "client.secret": "2fcc8dda-0362-4923-bdab-fd1b78eae2d1",
+     "oAuthFlowType" : "AUTH_CODE",
+     "redirect_uri" : "http://frontend:3005"
+   }
+   ```
+6. Start Keyclock with the comman `sudo docker-compose run --rm waitforkeycloak` from your sirixdb directory with the copied `docker-compose.yml` file.
+6. In your browser navigate to http://localhost:8080 and click on the link "Administration Console".
+7. Use username "admin", password "admin" to log in.
+8. Navigate to `Clients` => `sirix`.
+9. Set `Implicit Flow Enabled`.
+10. Set redirect URL to `http://frontend:3005`.
+11. Navigate to the `Credentials` tab and generate a new secret.
+12. Put this secret in `sirix/bundles/sirix-rest-api/src/main/resources/sirix-conf.json` as the value for `client.secret`.
+13. Start the SirixDB HTTP-Server: `sudo docker-compose up -d server`
+13. Start the Node.js Server: `sudo docker-compose up -d frontend`
+14. In your browser call http://localhost:3005 and the frontend should appear.
+
+Without Docker for setting up the web frontend:
 
 ``` bash
 # install dependencies

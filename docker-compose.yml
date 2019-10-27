@@ -44,4 +44,7 @@ services:
     depends_on:
       - server
       - keycloak
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
