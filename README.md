@@ -46,7 +46,7 @@ In order to use the `docker-compose`:
 7. Use username "admin", password "admin" to log in.
 8. Navigate to `Clients` => `sirix`.
 9. Set `Standard Flow Enabled`.
-10. Set redirect URL to `http://localhost:3005/callback`.
+10. Set redirect URL to `http://127.0.0.1:3005/callback`.
 11. Navigate to the `Credentials` tab and generate a new secret.
 12. Put this secret in `sirix/bundles/sirix-rest-api/src/main/resources/sirix-conf.json` as the value for `client.secret`.
 13. Start the SirixDB HTTP-Server: `sudo docker-compose up -d server`
