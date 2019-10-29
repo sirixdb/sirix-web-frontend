@@ -1,5 +1,5 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 
 <p align="center"><img src="https://raw.githubusercontent.com/sirixdb/sirix/master/logo.png"/></p>
 
@@ -95,6 +95,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/simhol"><img src="https://avatars3.githubusercontent.com/u/4987937?v=4" width="100px;" alt="Simon Holdorf"/><br /><sub><b>Simon Holdorf</b></sub></a><br /><a href="https://github.com/sirixdb/sirix-web-frontend/commits?author=simhol" title="Code">💻</a></td>
     <td align="center"><a href="http://www.codingyang.com"><img src="https://avatars3.githubusercontent.com/u/18388400?v=4" width="100px;" alt="yang"/><br /><sub><b>yang</b></sub></a><br /><a href="https://github.com/sirixdb/sirix-web-frontend/commits?author=Rackar" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/pareshjoshi"><img src="https://avatars1.githubusercontent.com/u/6260967?v=4" width="100px;" alt="Atman"/><br /><sub><b>Atman</b></sub></a><br /><a href="https://github.com/sirixdb/sirix-web-frontend/commits?author=pareshjoshi" title="Code">💻</a></td>
   </tr>
 </table>
 
