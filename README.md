@@ -1,4 +1,5 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 <p align="center"><img src="https://raw.githubusercontent.com/sirixdb/sirix/master/logo.png"/></p>
 
@@ -83,3 +84,19 @@ $ npm run generate
 
 ### Customize configuration
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/simhol"><img src="https://avatars3.githubusercontent.com/u/4987937?v=4" width="100px;" alt="Simon Holdorf"/><br /><sub><b>Simon Holdorf</b></sub></a><br /><a href="https://github.com/sirixdb/sirix-web-frontend/commits?author=simhol" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
