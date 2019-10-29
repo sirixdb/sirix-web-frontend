@@ -1,0 +1,23 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "simhol",
+      "name": "Simon Holdorf",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4987937?v=4",
+      "profile": "https://github.com/simhol",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "sirix-web-frontend",
+  "projectOwner": "sirixdb",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
