@@ -35,7 +35,7 @@ Test and edit this project in a web based VS code environment.
 
 We've created a `Dockerfile` and a `docker-compose.yml` file to simplify the setup process. However you still have to setup Keycloak as desribed in the documentation for the REST-API (especially assigning the roles to an admin-user):
 
-In order to use the `docker-compose`:
+In order to use `docker-compose`:
 
 1. `mkdir sirixdb`
 2. `git clone https://github.com/sirixdb/sirix.git`
