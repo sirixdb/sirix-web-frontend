@@ -79,7 +79,7 @@ export default {
   },
   auth: {
     strategies: {
-      social: {
+      keycloak: {
 	_scheme: 'oauth2',
 	authorization_endpoint: 'https://localhost:9443/user/authorize',
 	userinfo_endpoint: false,
@@ -92,7 +92,7 @@ export default {
     },
     redirect: {
       login: '/login',
-      callback: '/login',
+      callback: '/callback',
       home: '/'
     },
   },

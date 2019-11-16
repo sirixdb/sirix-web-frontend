@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h1>You are Secure</h1>
-    <el-link type="primary"><el-button type="success">Callback</el-button></el-link>
+    <h1>You are logged in</h1>
   </div>
 </template>
 <script>
