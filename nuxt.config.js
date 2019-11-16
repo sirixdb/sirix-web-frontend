@@ -89,7 +89,12 @@ export default {
 	token_type: 'Bearer',
 	token_key: 'access_token',
       },
-    }
+    },
+    redirect: {
+      login: '/login',
+      callback: '/login',
+      home: '/'
+    },
   },
   router: {
     middleware: ['auth']

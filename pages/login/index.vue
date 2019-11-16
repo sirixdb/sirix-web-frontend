@@ -11,23 +11,8 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 @Component
 export default class Login extends Vue {
   private login(): void {
-<<<<<<< HEAD
     // window.open("https://localhost:9443/user/authorize", "_self")
     this.$auth.loginWith('social')
-||||||| merged common ancestors
-    console.log("bla")
-    this.$axios
-      .$get("/user/authorize", {})
-      .then((res: any) => {
-        console.log(res);
-      });
-=======
-    this.$axios
-      .$get("/user/authorize", {})
-      .then((res: any) => {
-        console.log(res);
-      });
->>>>>>> 46de5d2e73f075e6c6b609ca5e76722a6c99ebab
   }
 }
 </script>
