@@ -52,7 +52,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'https://localhost:9443' }], '@nuxtjs/auth', '@nuxtjs/proxy'],
+  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'https://localhost:9443' }], '@nuxtjs/auth', '@nuxtjs/proxy', '@nuxtjs/toast'],
   /*
    ** Build configuration
    */
@@ -69,8 +69,8 @@ export default {
     }
   },
   axios: {
-    baseURL: 'https://127.0.0.1:9443',
-    browserBaseURL: 'https://127.0.0.1:9443',
+    baseURL: 'https://localhost:9443',
+    browserBaseURL: 'https://localhost:9443',
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
@@ -80,27 +80,26 @@ export default {
   auth: {
     strategies: {
       social: {
-        _scheme: 'oauth2',
-        authorization_endpoint: '/user/authorize',
-        userinfo_endpoint: false,
-        scope: ['create','view','modify','delete'],
-        access_type: 'offline',
-        access_token_endpoint: '/token',
-        response_type: 'code',
-        token_type: 'Bearer',
-        redirect_uri: '/',
-        client_id: 'sirix',
-        token_key: 'access_token',
-        state: 'UNIQUE_AND_NON_GUESSABLE'
-      }
+	_scheme: 'oauth2',
+	authorization_endpoint: 'https://localhost:9443/user/authorize',
+	userinfo_endpoint: false,
+	access_type: 'offline',
+	access_token_endpoint: 'https://localhost:9443/token',
+	response_type: 'code',
+	token_type: 'Bearer',
+	token_key: 'access_token',
+      },
     }
   },
   router: {
     middleware: ['auth']
   },
-  /* proxy: {
+  proxy: {
     '/user/authorize': {
-      target: 'https://127.0.0.1:9443/user/authorize',
-    }
-  } */
+      target: 'https://localhost:9443/user/authorize',
+    },
+    '/token': {
+      target: 'https://localhost:9443/token',
+    },
+  }
 }
