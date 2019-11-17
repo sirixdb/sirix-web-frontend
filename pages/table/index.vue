@@ -35,7 +35,7 @@ import { Inject } from "inversify-props";
 import HistoryItem from "@/models/HistoryItem";
 import IDataService from "@/services/IDataService";
 import { Component, Prop, Vue } from "vue-property-decorator";
-import axios from "~/plugins/axios";
+//import axios from "~/plugins/axios";
 import "~/mock/mock.js";
 @Component
 export default class TableView extends Vue {
@@ -65,7 +65,7 @@ export default class TableView extends Vue {
 
   private fetchRevisionCounts(): Promise<number> {
     // wait for api path
-    return axios
+    return this.$axios
       .get("/api/counts")
       .then((res: any) => {
         // console.log(res);
@@ -82,7 +82,7 @@ export default class TableView extends Vue {
     page: number,
     pageSize: number
   ): void {
-    axios
+    this.$axios
       .get("/api/history", {
         params: {
           total: total,

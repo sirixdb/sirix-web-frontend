@@ -114,7 +114,7 @@ var compareJson = function() {
 }
 
 // this rest api path will mock data
-Mock.mock(RegExp('http://localhost:3002/api/history.*'), 'get', listData)
-Mock.mock('http://localhost:3002/api/counts', 'get', countData)
-Mock.mock(RegExp('http://localhost:3002/api/json.*'), 'get', jsonData)
-Mock.mock(RegExp('http://localhost:3002/api/comparejson.*'), 'get', compareJson)
+Mock.mock(RegExp('https://localhost:9443/api/history.*'), 'get', listData)
+Mock.mock('https://localhost:9443/api/counts', 'get', countData)
+Mock.mock(RegExp('https://localhost:9443/api/json.*'), 'get', jsonData)
+Mock.mock(RegExp('https://localhost:9443/api/comparejson.*'), 'get', compareJson)

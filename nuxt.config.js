@@ -4,8 +4,8 @@ export default {
    ** Headers of the page
    */
   server: {
-    port: 3005 // default: 3000
-    // host: "0.0.0.0" // default: localhost
+    port: 3005, // default: 3000
+    host: "0.0.0.0" // default: localhost
   },
   head: {
     title: process.env.npm_package_name || '',
@@ -52,7 +52,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/pwa'],
+  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'https://localhost:9443' }], '@nuxtjs/auth', '@nuxtjs/proxy', '@nuxtjs/toast'],
   /*
    ** Build configuration
    */
@@ -62,6 +62,49 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend: function (config, {isDev, isClient}) {
+      config.node = {
+        fs: "empty"
+      };
+    }
+  },
+  axios: {
+    baseURL: 'https://localhost:9443',
+    browserBaseURL: 'https://localhost:9443',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    proxyHeaders: true,
+    proxy: true,
+  },
+  auth: {
+    strategies: {
+      keycloak: {
+	_scheme: 'oauth2',
+	authorization_endpoint: 'https://localhost:9443/user/authorize',
+	userinfo_endpoint: false,
+	access_type: 'offline',
+	access_token_endpoint: 'https://localhost:9443/token',
+	response_type: 'code',
+	token_type: 'Bearer',
+	token_key: 'access_token',
+      },
+    },
+    redirect: {
+      login: '/login',
+      callback: '/callback',
+      home: '/'
+    },
+  },
+  router: {
+    middleware: ['auth']
+  },
+  proxy: {
+    '/user/authorize': {
+      target: 'https://localhost:9443/user/authorize',
+    },
+    '/token': {
+      target: 'https://localhost:9443/token',
+    },
   }
 }
