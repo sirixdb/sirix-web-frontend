@@ -49,8 +49,9 @@ In order to use `docker-compose`:
 9. Set `Standard Flow Enabled`.
 10. Set redirect URL to `http://localhost:3005/callback`.
 11. Navigate to the `Credentials` tab and generate a new secret.
-12. Put this secret in `sirix/bundles/sirix-rest-api/src/main/resources/sirix-conf.json` as the value for `client.secret`.
+12. Put this secret in `sirix/bundles/sirix-rest-api/src/main/resources/sirix-conf.json` as the value for `client.secret`. Make sure that the `oAuthFlowType` is set to `AUTH_CODE`
 13. Create a user: `Users` => `Add User` => Username admin. Under `Credentials` => New password => admin / admin. Set Temporary to off. Under `Role Mappings` add the 4 roles: `create`, `delete`, `modify`, `view`.
+13. Start the SirixDB HTTP-Server with the command `sudo docker-compose up -d server`
 13. Start the Node.js Server without Docker: `npm run dev`
 14. In your browser call http://localhost:3005 and the frontend should appear.
 
