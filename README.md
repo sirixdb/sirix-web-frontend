@@ -1,4 +1,5 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 
 <p align="center"><img src="https://raw.githubusercontent.com/sirixdb/sirix/master/logo.png"/></p>
 
@@ -8,7 +9,7 @@
 
 [Join us on Slack](https://join.slack.com/t/sirixdb/shared_invite/enQtNjI1Mzg4NTY4ODUzLTE3NmRhMWRiNWEzMjQ0NjAxNTZlODBhMTQzMWM2Nzc5MThkMjlmMzI0ODRlNGE0ZDgxNDcyODhlZDRhYjM2N2U) | [Community Forum](https://sirix.discourse.group/)
 
-**Working on your first Pull Request?** You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
+**Working on your first Pull Request?** You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github) and another tutorial: [How YOU can contribute to OSS, a beginners guide](https://dev.to/itnext/how-you-can-contribute-to-oss-36id)
 
 <h1 align="center">SirixDB Web frontend - An Evolutionary, Versioned, Temporal NoSQL Document Store</h1>
 <h2 align="center">Store and query revisions of your data efficiently</h2>
@@ -46,12 +47,12 @@ In order to use `docker-compose`:
 7. Use username "admin", password "admin" to log in.
 8. Navigate to `Clients` => `sirix`.
 9. Set `Standard Flow Enabled`.
-10. Set redirect URL to `http://127.0.0.1:3005/callback`.
+10. Set redirect URL to `http://localhost:3005/callback`.
 11. Navigate to the `Credentials` tab and generate a new secret.
 12. Put this secret in `sirix/bundles/sirix-rest-api/src/main/resources/sirix-conf.json` as the value for `client.secret`.
-13. Start the SirixDB HTTP-Server: `sudo docker-compose up -d server`
-13. Start the Node.js Server: `sudo docker-compose up -d frontend`
-14. In your browser call http://127.0.0.1:3005 and the frontend should appear.
+13. Start the Node.js Server without Docker: `npm run dev`
+14. In your browser call http://localhost:3005 and the frontend should appear.
+
 
 Without Docker for setting up the web frontend:
 
@@ -72,3 +73,22 @@ $ npm run generate
 
 ### Customize configuration
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/simhol"><img src="https://avatars3.githubusercontent.com/u/4987937?v=4" width="100px;" alt="Simon Holdorf"/><br /><sub><b>Simon Holdorf</b></sub></a><br /><a href="https://github.com/sirixdb/sirix-web-frontend/commits?author=simhol" title="Code">💻</a></td>
+    <td align="center"><a href="http://www.codingyang.com"><img src="https://avatars3.githubusercontent.com/u/18388400?v=4" width="100px;" alt="yang"/><br /><sub><b>yang</b></sub></a><br /><a href="https://github.com/sirixdb/sirix-web-frontend/commits?author=Rackar" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/pareshjoshi"><img src="https://avatars1.githubusercontent.com/u/6260967?v=4" width="100px;" alt="Atman"/><br /><sub><b>Atman</b></sub></a><br /><a href="https://github.com/sirixdb/sirix-web-frontend/commits?author=pareshjoshi" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.jawahar.tech/"><img src="https://avatars0.githubusercontent.com/u/14835387?v=4" width="100px;" alt="Jawahar"/><br /><sub><b>Jawahar</b></sub></a><br /><a href="https://github.com/sirixdb/sirix-web-frontend/commits?author=jawahars16" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

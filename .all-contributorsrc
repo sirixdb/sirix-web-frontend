@@ -1,0 +1,50 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "simhol",
+      "name": "Simon Holdorf",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4987937?v=4",
+      "profile": "https://github.com/simhol",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Rackar",
+      "name": "yang",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/18388400?v=4",
+      "profile": "http://www.codingyang.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "pareshjoshi",
+      "name": "Atman",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/6260967?v=4",
+      "profile": "https://github.com/pareshjoshi",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "jawahars16",
+      "name": "Jawahar",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/14835387?v=4",
+      "profile": "https://www.jawahar.tech/",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "sirix-web-frontend",
+  "projectOwner": "sirixdb",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
