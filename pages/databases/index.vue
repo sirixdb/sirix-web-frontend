@@ -32,7 +32,7 @@ export default class TreeView extends Vue {
         return Promise.resolve(res.data);
       })
       .catch(() => {
-        return 0;
+        return Promise.resolve(new Array());
       });
   }
 
@@ -43,7 +43,7 @@ export default class TreeView extends Vue {
         console.log(res.data);
       })
       .catch(() => {
-        return 0;
+        return Promise.resolve(new Array());
       });
   }
 }
