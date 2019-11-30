@@ -72,10 +72,12 @@ export default {
     baseURL: 'https://localhost:9443',
     browserBaseURL: 'https://localhost:9443',
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': 'http://localhost:3005',
     },
     proxyHeaders: true,
     proxy: true,
+    debug: true,
+    credentials: true
   },
   auth: {
     strategies: {
