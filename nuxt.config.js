@@ -44,7 +44,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/element-ui', '@/plugins/dependencyContainer.ts'],
+  plugins: ['@/plugins/element-ui', '@/plugins/dependencyContainer.ts', '@/plugins/axios'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -52,7 +52,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'https://localhost:9443' }], '@nuxtjs/auth', '@nuxtjs/proxy', '@nuxtjs/toast'],
+  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'https://localhost:9443', rejectUnauthorized: false }], '@nuxtjs/auth', '@nuxtjs/proxy', '@nuxtjs/toast'],
   /*
    ** Build configuration
    */
@@ -71,9 +71,6 @@ export default {
   axios: {
     baseURL: 'https://localhost:9443',
     browserBaseURL: 'https://localhost:9443',
-    headers: {
-      'Access-Control-Allow-Origin': 'http://localhost:3005',
-    },
     proxyHeaders: true,
     proxy: true,
     debug: true,
@@ -83,10 +80,10 @@ export default {
     strategies: {
       keycloak: {
 	_scheme: 'oauth2',
-	authorization_endpoint: 'https://localhost:9443/user/authorize',
+	authorization_endpoint: '/user/authorize',
 	userinfo_endpoint: false,
 	access_type: 'offline',
-	access_token_endpoint: 'https://localhost:9443/token',
+	access_token_endpoint: '/token',
 	response_type: 'code',
 	token_type: 'Bearer',
 	token_key: 'access_token',
@@ -103,10 +100,14 @@ export default {
   },
   proxy: {
     '/user/authorize': {
-      target: 'https://localhost:9443/user/authorize',
+      target: 'https://localhost:9443'
     },
     '/token': {
-      target: 'https://localhost:9443/token',
+      target: 'https://localhost:9443'
     },
+    '/api/': {
+      target: 'https://localhost:9443',
+      pathRewrite: {'^/api/': ''}
+    }
   }
 }
