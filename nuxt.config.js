@@ -1,3 +1,5 @@
+import { Agent } from 'https';
+
 export default {
   mode: 'universal',
   /*
@@ -52,7 +54,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'https://localhost:9443', rejectUnauthorized: false }], '@nuxtjs/auth', '@nuxtjs/proxy', '@nuxtjs/toast'],
+  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'localhost:3005', rejectUnauthorized: false }], '@nuxtjs/auth', '@nuxtjs/proxy', '@nuxtjs/toast'],
   /*
    ** Build configuration
    */
@@ -69,24 +71,23 @@ export default {
     }
   },
   axios: {
-    baseURL: 'https://localhost:9443',
-    browserBaseURL: 'https://localhost:9443',
+    baseURL: 'localhost:3005',
+    browserBaseURL: 'localhost:3005',
     proxyHeaders: true,
     proxy: true,
     debug: true,
-    credentials: true
   },
   auth: {
     strategies: {
       keycloak: {
 	_scheme: 'oauth2',
-	authorization_endpoint: '/user/authorize',
+	authorization_endpoint: '/auth/user/authorize',
 	userinfo_endpoint: false,
 	access_type: 'offline',
-	access_token_endpoint: '/token',
+	access_token_endpoint: '/auth/token',
 	response_type: 'code',
 	token_type: 'Bearer',
-	token_key: 'access_token',
+	token_key: 'access_token'
       },
     },
     redirect: {
@@ -99,15 +100,17 @@ export default {
     middleware: ['auth']
   },
   proxy: {
-    '/user/authorize': {
-      target: 'https://localhost:9443'
+    '/auth/': {
+      target: 'https://localhost:9443/',
+      pathRewrite: {'^/auth': ''},
+      agent: new Agent({ rejectUnauthorized: false }),
+      changeOrigin: true
     },
-    '/token': {
-      target: 'https://localhost:9443'
-    },
-    '/api/': {
-      target: 'https://localhost:9443',
-      pathRewrite: {'^/api/': ''}
+    '/sirix/': {
+      target: 'https://localhost:9443/',
+      pathRewrite: {'^/sirix': ''},
+      agent: new Agent({ rejectUnauthorized: false }),
+      changeOrigin: true
     }
   }
 }
