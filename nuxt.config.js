@@ -81,13 +81,16 @@ export default {
     strategies: {
       keycloak: {
 	_scheme: 'oauth2',
-	authorization_endpoint: '/auth/user/authorize',
+	authorization_endpoint: '/sirix/user/authorize',
 	userinfo_endpoint: false,
 	access_type: 'offline',
-	access_token_endpoint: '/auth/token',
+	access_token_endpoint: '/sirix/token',
 	response_type: 'code',
-	token_type: 'Bearer',
-	token_key: 'access_token'
+  token_type: 'Bearer',
+  token_key: 'access_token',
+  client_id: 'sirix',
+  client_secret: '8f12a099-767b-4125-bf54-14cb8a9b9f2f',
+  redirect_uri: 'http://localhost:3005/callback',
       },
     },
     redirect: {
@@ -100,17 +103,10 @@ export default {
     middleware: ['auth']
   },
   proxy: {
-    '/auth/': {
-      target: 'https://localhost:9443/',
-      pathRewrite: {'^/auth': ''},
-      agent: new Agent({ rejectUnauthorized: false }),
-      changeOrigin: true
-    },
-    '/sirix/': {
+    '/sirix': {
       target: 'https://localhost:9443/',
       pathRewrite: {'^/sirix': ''},
-      agent: new Agent({ rejectUnauthorized: false }),
-      changeOrigin: true
+      agent: new Agent({ rejectUnauthorized: false })
     }
   }
 }
