@@ -1,4 +1,5 @@
-import https from 'https';
+const https = require('https');
+
 export default function ({ $axios, redirect }) {
 
   $axios.defaults.httpsAgent = new https.Agent({ rejectUnauthorized: false })
@@ -6,7 +7,7 @@ export default function ({ $axios, redirect }) {
   $axios.onError(error => {
     const code = parseInt(error.response && error.response.status);
     if (code === 401) {
-      redirect('http://localhost:3005/user/authorize');
+      redirect('http://localhost:3005/login');
     }
   });
 }

@@ -60,7 +60,7 @@ Without Docker for setting up the web frontend:
 
 ``` bash
 # install dependencies
-$ npm run install
+$ npm install
 
 # serve with hot reload at localhost:3005
 $ npm run dev
