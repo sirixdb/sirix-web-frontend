@@ -1,3 +1,5 @@
+import { Agent } from 'https';
+
 export default {
   mode: 'universal',
   /*
@@ -44,7 +46,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/element-ui', '@/plugins/dependencyContainer.ts'],
+  plugins: ['@/plugins/element-ui', '@/plugins/dependencyContainer.ts', '@/plugins/axios', '@/plugins/auth'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -52,7 +54,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'https://localhost:9443' }], '@nuxtjs/auth', '@nuxtjs/proxy', '@nuxtjs/toast'],
+  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'http://localhost:3005' }], '@nuxtjs/auth', '@nuxtjs/proxy', '@nuxtjs/toast'],
   /*
    ** Build configuration
    */
@@ -69,8 +71,8 @@ export default {
     }
   },
   axios: {
-    baseURL: 'https://localhost:9443',
-    browserBaseURL: 'https://localhost:9443',
+    baseURL: 'http://localhost:3005',
+    browserBaseURL: 'http://localhost:3005',
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
@@ -81,13 +83,16 @@ export default {
     strategies: {
       keycloak: {
 	_scheme: 'oauth2',
-	authorization_endpoint: 'https://localhost:9443/user/authorize',
+	authorization_endpoint: '/sirix/user/authorize',
 	userinfo_endpoint: false,
 	access_type: 'offline',
-	access_token_endpoint: 'https://localhost:9443/token',
+	access_token_endpoint: '/sirix/token',
 	response_type: 'code',
-	token_type: 'Bearer',
-	token_key: 'access_token',
+  token_type: 'Bearer',
+  token_key: 'access_token',
+  client_id: 'sirix',
+  client_secret: '8f12a099-767b-4125-bf54-14cb8a9b9f2f',
+  redirect_uri: 'http://localhost:3005/callback',
       },
     },
     redirect: {
@@ -100,11 +105,10 @@ export default {
     middleware: ['auth']
   },
   proxy: {
-    '/user/authorize': {
-      target: 'https://localhost:9443/user/authorize',
-    },
-    '/token': {
-      target: 'https://localhost:9443/token',
-    },
+    '/sirix': {
+      target: 'https://localhost:9443/',
+      pathRewrite: {'^/sirix': ''},
+      agent: new Agent({ rejectUnauthorized: false })
+    }
   }
 }

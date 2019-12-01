@@ -4,7 +4,7 @@ export default function ({ app }) {
 
   const { $axios, $auth } = app
 
-  if (!$auth.loggedIn || !$auth.strategies[strategy])
+  if (!$auth || !$auth.loggedIn || !$auth.strategies[strategy])
     return
 
   const options = $auth.strategies.keycloak.options
