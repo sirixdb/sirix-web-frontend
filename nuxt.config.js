@@ -46,7 +46,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/element-ui', '@/plugins/dependencyContainer.ts', '@/plugins/axios'],
+  plugins: ['@/plugins/element-ui', '@/plugins/dependencyContainer.ts', '@/plugins/axios', '@/plugins/auth'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -54,7 +54,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'localhost:3005', rejectUnauthorized: false }], '@nuxtjs/auth', '@nuxtjs/proxy', '@nuxtjs/toast'],
+  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'http://localhost:3005' }], '@nuxtjs/auth', '@nuxtjs/proxy', '@nuxtjs/toast'],
   /*
    ** Build configuration
    */
@@ -71,26 +71,28 @@ export default {
     }
   },
   axios: {
-    baseURL: 'localhost:3005',
-    browserBaseURL: 'localhost:3005',
+    baseURL: 'http://localhost:3005',
+    browserBaseURL: 'http://localhost:3005',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
     proxyHeaders: true,
     proxy: true,
-    debug: true,
   },
   auth: {
     strategies: {
       keycloak: {
-	_scheme: 'oauth2',
-	authorization_endpoint: '/sirix/user/authorize',
-	userinfo_endpoint: false,
-	access_type: 'offline',
-	access_token_endpoint: '/sirix/token',
-	response_type: 'code',
-  token_type: 'Bearer',
-  token_key: 'access_token',
-  client_id: 'sirix',
-  client_secret: '8f12a099-767b-4125-bf54-14cb8a9b9f2f',
-  redirect_uri: 'http://localhost:3005/callback',
+        _scheme: 'oauth2',
+        authorization_endpoint: '/sirix/user/authorize',
+        userinfo_endpoint: false,
+        access_type: 'offline',
+        access_token_endpoint: '/sirix/token',
+        response_type: 'code',
+        token_type: 'Bearer',
+        token_key: 'access_token',
+        client_id: 'sirix',
+        client_secret: '8f12a099-767b-4125-bf54-14cb8a9b9f2f',
+        redirect_uri: 'http://localhost:3005/callback',
       },
     },
     redirect: {
