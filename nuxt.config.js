@@ -73,9 +73,6 @@ export default {
   axios: {
     baseURL: 'http://localhost:3005',
     browserBaseURL: 'http://localhost:3005',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
     proxyHeaders: true,
     proxy: true,
   },
