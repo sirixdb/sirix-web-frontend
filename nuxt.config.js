@@ -46,7 +46,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/element-ui', '@/plugins/dependencyContainer.ts', '@/plugins/axios'],
+  plugins: ['@/plugins/element-ui', '@/plugins/dependencyContainer.ts'],
   /*
    ** Nuxt.js dev-modules
    */

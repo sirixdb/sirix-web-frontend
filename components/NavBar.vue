@@ -4,7 +4,7 @@
       <img class="nav-logo" alt="SirixDB" src="../assets/logo.png" />
     </el-menu-item>
     <el-menu-item index="/" to="/">Home</el-menu-item>
-    <el-menu-item index="/database" to="about">Database</el-menu-item>
+    <el-menu-item index="/databases" to="about">Databases</el-menu-item>
     <el-menu-item index="/table" to="table">Table</el-menu-item>
     <el-menu-item index="/query" to="query">Query</el-menu-item>
     <el-menu-item index="/compare" to="compare">Compare</el-menu-item>

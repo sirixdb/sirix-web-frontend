@@ -43,5 +43,7 @@
     "vue-jest": "^4.0.0-0"
   },
   "typings": "types/index.d.ts",
-  "files": ["types/*.d.ts"]
+  "files": [
+    "types/*.d.ts"
+  ]
 }
