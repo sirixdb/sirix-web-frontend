@@ -1,17 +1,29 @@
 <template>
   <div class="databases">
     <el-button-group>
-      <el-button type="primary" icon="el-icon-circle-plus" @click="databaseDialogFormVisible = true">Create New Database</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-circle-plus"
+        @click="databaseDialogFormVisible = true"
+      >Create New Database</el-button>
     </el-button-group>
     <el-dialog title="Create New Database" :visible.sync="databaseDialogFormVisible">
       <el-form :model="databaseForm">
-        <el-form-item label="Database name" required=true>
+        <el-form-item label="Database name" required="true">
           <el-input v-model="databaseForm.name" autocomplete="off"></el-input>
+          <el-select v-model="databaseCreateType" placeholder="Database Type">
+            <el-option
+              v-for="item in databaseTypes"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="databaseDialogFormVisible = false">Cancel</el-button>
-        <el-button id="confirmDatabaseCreation" type="primary" @click="createNewDatabase()">Create</el-button>
+        <el-button :loading="createDatabaseSpinner" id="confirmDatabaseCreation" type="primary" @click="createNewDatabase()">Create</el-button>
       </span>
     </el-dialog>
 
@@ -22,6 +34,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { JsonObj } from 'vue-meta/types/vue-meta';
 
 @Component
 export default class TreeView extends Vue {
@@ -35,14 +48,10 @@ export default class TreeView extends Vue {
         this.getResources(database);
       }
     });
-  };
+  }
 
   private databases: Array<Map<string, string>> = [];
   private defaultProps = this.databases;
-
-  private databaseDialogFormVisible = false;
-  
-  private databaseForm = { name: '' }
 
   private getDatabases(): Promise<Array<Map<string, string>>> {
     return this.$axios
@@ -66,29 +75,37 @@ export default class TreeView extends Vue {
       });
   }
 
-  private createNewDatabase() : void {
-    // TODO modify spinner (loading) of create button
-    this.newDatabase(this.databaseForm.name)
-      .then((success : boolean) => {
-        if (success) {
-          this.databaseDialogFormVisible = false;
-        } else {
+  private databaseForm = { name: "" };
+  private databaseTypes: Array<JsonObj> = [
+    {label: 'XML Database', value: 'application/xml'},
+    {label: 'JSON Database', value: 'application/json'}
+  ];
+  private databaseCreateType: string = '';
+  private createDatabaseSpinner: boolean = false;
+  private databaseDialogFormVisible = false;
 
-        }
-      })
+  private createNewDatabase(): void {
+    this.createDatabaseSpinner = true;
+    this.newDatabase(this.databaseForm.name, this.databaseCreateType).then((success: boolean) => {
+      if (success) {
+        this.databaseDialogFormVisible = false;
+      } else {
+      }
+      this.createDatabaseSpinner = false;
+    });
   }
 
-  private newDatabase(name: string) : Promise<boolean> {
+  private newDatabase(name: string, databaseType: string): Promise<boolean> {
     return this.$axios
-      .$put(`sirix/${name}`)
+      .$put(`sirix/${name}`, {'content-type': databaseType})
       .then((res: any) => {
         console.log(res);
         return true;
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e);
         return false;
-      })
+      });
   }
 }
 </script>
