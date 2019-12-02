@@ -54,7 +54,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'localhost:3005', rejectUnauthorized: false }], '@nuxtjs/auth', '@nuxtjs/proxy', '@nuxtjs/toast'],
+  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'http://localhost:3005' }], '@nuxtjs/auth', '@nuxtjs/proxy', '@nuxtjs/toast'],
   /*
    ** Build configuration
    */
@@ -71,8 +71,8 @@ export default {
     }
   },
   axios: {
-    baseURL: 'localhost:3005',
-    browserBaseURL: 'localhost:3005',
+    baseURL: 'http://localhost:3005',
+    browserBaseURL: 'http://localhost:3005',
     proxyHeaders: true,
     proxy: true,
     debug: true,
