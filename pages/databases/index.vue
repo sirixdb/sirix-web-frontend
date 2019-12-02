@@ -27,7 +27,7 @@ export default class TreeView extends Vue {
 
   private getDatabases(): Promise<Array<Map<string, string>>> {
     return this.$axios
-      .$get("/")
+      .$get("/sirix")
       .then((res: any) => {
         return Promise.resolve(res.data);
       })
