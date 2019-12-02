@@ -54,7 +54,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'localhost:3005', rejectUnauthorized: false }], '@nuxtjs/auth', '@nuxtjs/proxy', '@nuxtjs/toast'],
+  modules: ['@nuxtjs/pwa', ['@nuxtjs/axios',  { baseURL: 'http://localhost:3005' }], '@nuxtjs/auth', '@nuxtjs/proxy', '@nuxtjs/toast'],
   /*
    ** Build configuration
    */
@@ -71,23 +71,24 @@ export default {
     }
   },
   axios: {
-    baseURL: 'localhost:3005',
-    browserBaseURL: 'localhost:3005',
+    baseURL: 'http://localhost:3005',
+    browserBaseURL: 'http://localhost:3005',
     proxyHeaders: true,
     proxy: true,
-    debug: true,
   },
   auth: {
     strategies: {
       keycloak: {
-	_scheme: 'oauth2',
-	authorization_endpoint: '/auth/user/authorize',
-	userinfo_endpoint: false,
-	access_type: 'offline',
-	access_token_endpoint: '/auth/token',
-	response_type: 'code',
-	token_type: 'Bearer',
-	token_key: 'access_token'
+        _scheme: 'oauth2',
+        authorization_endpoint: '/sirix/user/authorize',
+        userinfo_endpoint: false,
+        access_type: 'offline',
+        access_token_endpoint: '/sirix/token',
+        response_type: 'code',
+        token_type: 'Bearer',
+        token_key: 'access_token',
+        client_id: 'sirix',
+        redirect_uri: 'http://localhost:3005/callback',
       },
     },
     redirect: {
@@ -95,22 +96,18 @@ export default {
       callback: '/callback',
       home: '/'
     },
+    auth: {
+      plugins: [ { src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js' ]
+    }
   },
   router: {
     middleware: ['auth']
   },
   proxy: {
-    '/auth/': {
-      target: 'https://localhost:9443/',
-      pathRewrite: {'^/auth': ''},
-      agent: new Agent({ rejectUnauthorized: false }),
-      changeOrigin: true
-    },
-    '/sirix/': {
+    '/sirix': {
       target: 'https://localhost:9443/',
       pathRewrite: {'^/sirix': ''},
-      agent: new Agent({ rejectUnauthorized: false }),
-      changeOrigin: true
+      agent: new Agent({ rejectUnauthorized: false })
     }
   }
 }

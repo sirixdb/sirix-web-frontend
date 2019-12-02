@@ -42,7 +42,7 @@ export default function ({ app }) {
       $axios.setToken(token)
     } catch (error) {
       $auth.logout()
-      throw new Error('Erro while refreshing token')
+      throw new Error('Error while refreshing token')
     }
   }, refreshInterval)
 }
