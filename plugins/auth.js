@@ -4,7 +4,7 @@ export default function ({ app }) {
 
   const { $axios, $auth } = app
 
-  if (!$auth || !$auth.loggedIn || !$auth.strategies[strategy])
+  if (!$auth.loggedIn || !$auth.strategies[strategy])
     return
 
   const options = $auth.strategies.keycloak.options
@@ -42,7 +42,7 @@ export default function ({ app }) {
       $axios.setToken(token)
     } catch (error) {
       $auth.logout()
-      throw new Error('Erro while refreshing token')
+      throw new Error('Error while refreshing token')
     }
   }, refreshInterval)
 }
