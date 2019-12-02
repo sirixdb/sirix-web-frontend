@@ -46,7 +46,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/element-ui', '@/plugins/dependencyContainer.ts', '@/plugins/axios', '@/plugins/auth'],
+  plugins: ['@/plugins/element-ui', '@/plugins/dependencyContainer.ts', '@/plugins/axios'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -91,7 +91,6 @@ export default {
         token_type: 'Bearer',
         token_key: 'access_token',
         client_id: 'sirix',
-        client_secret: '8f12a099-767b-4125-bf54-14cb8a9b9f2f',
         redirect_uri: 'http://localhost:3005/callback',
       },
     },
@@ -100,6 +99,9 @@ export default {
       callback: '/callback',
       home: '/'
     },
+    auth: {
+      plugins: [ { src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js' ]
+    }
   },
   router: {
     middleware: ['auth']
