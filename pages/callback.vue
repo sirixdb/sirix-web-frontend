@@ -6,22 +6,22 @@
 </template>
 <script>
 export default {
-    props: [
-      'expanded'
-    ],
+  props: [
+    'expanded'
+  ],
 
-    middleware: ['auth'],
+  middleware: ['auth'],
 
-    methods: {
-    	loggedIn() {
-    	    return this.$auth.loggedIn
-    	},
+  methods: {
+  	loggedIn() {
+      return this.$auth.loggedIn
+   	},
 
-        async logout() {
-            await this.$auth.logout()
-            this.$router.push('/login')
-        }
+    async logout() {
+      await this.$auth.logout()
+      this.$router.push('/login')
     }
+  }
 }
 </script>
 <style scoped>

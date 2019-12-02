@@ -46,7 +46,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/element-ui', '@/plugins/dependencyContainer.ts', '@/plugins/axios'],
+  plugins: ['@/plugins/element-ui', '@/plugins/dependencyContainer.ts', '@/plugins/axios', '@/plugins/auth'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -75,22 +75,21 @@ export default {
     browserBaseURL: 'http://localhost:3005',
     proxyHeaders: true,
     proxy: true,
-    debug: true,
   },
   auth: {
     strategies: {
       keycloak: {
-	_scheme: 'oauth2',
-	authorization_endpoint: '/sirix/user/authorize',
-	userinfo_endpoint: false,
-	access_type: 'offline',
-	access_token_endpoint: '/sirix/token',
-	response_type: 'code',
-  token_type: 'Bearer',
-  token_key: 'access_token',
-  client_id: 'sirix',
-  client_secret: '8f12a099-767b-4125-bf54-14cb8a9b9f2f',
-  redirect_uri: 'http://localhost:3005/callback',
+        _scheme: 'oauth2',
+        authorization_endpoint: '/sirix/user/authorize',
+        userinfo_endpoint: false,
+        access_type: 'offline',
+        access_token_endpoint: '/sirix/token',
+        response_type: 'code',
+        token_type: 'Bearer',
+        token_key: 'access_token',
+        client_id: 'sirix',
+        client_secret: '8f12a099-767b-4125-bf54-14cb8a9b9f2f',
+        redirect_uri: 'http://localhost:3005/callback',
       },
     },
     redirect: {
