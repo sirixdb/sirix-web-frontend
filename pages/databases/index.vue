@@ -1,5 +1,20 @@
 <template>
   <div class="databases">
+    <el-button-group>
+      <el-button type="primary" icon="el-icon-circle-plus" @click="databaseDialogFormVisible = true">Create New Database</el-button>
+    </el-button-group>
+    <el-dialog title="Create New Database" :visible.sync="databaseDialogFormVisible">
+      <el-form :model="databaseForm">
+        <el-form-item label="Database name" required=true>
+          <el-input v-model="databaseForm.name" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="databaseDialogFormVisible = false">Cancel</el-button>
+        <el-button id="confirmDatabaseCreation" type="primary" @click="createNewDatabase()">Create</el-button>
+      </span>
+    </el-dialog>
+
     <h3>Databases</h3>
     <el-tree :data="databases" :props="defaultProps"></el-tree>
   </div>
@@ -25,6 +40,10 @@ export default class TreeView extends Vue {
   private databases: Array<Map<string, string>> = [];
   private defaultProps = this.databases;
 
+  private databaseDialogFormVisible = false;
+  
+  private databaseForm = { name: '' }
+
   private getDatabases(): Promise<Array<Map<string, string>>> {
     return this.$axios
       .$get("/sirix")
@@ -45,6 +64,31 @@ export default class TreeView extends Vue {
       .catch(() => {
         return Promise.resolve(new Array());
       });
+  }
+
+  private createNewDatabase() : void {
+    // TODO modify spinner (loading) of create button
+    this.newDatabase(this.databaseForm.name)
+      .then((success : boolean) => {
+        if (success) {
+          this.databaseDialogFormVisible = false;
+        } else {
+
+        }
+      })
+  }
+
+  private newDatabase(name: string) : Promise<boolean> {
+    return this.$axios
+      .$put(`sirix/${name}`)
+      .then((res: any) => {
+        console.log(res);
+        return true;
+      })
+      .catch((e) => {
+        console.log(e);
+        return false;
+      })
   }
 }
 </script>
