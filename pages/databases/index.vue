@@ -51,15 +51,22 @@ export default class DatabasesView extends Vue {
     });
   }
 
-  private databases: Array<Map<string, string>> = [];
+  private databases: Array<JsonObj> = [];
   private defaultProps = this.databases;
 
-  private getDatabases(): Promise<Array<Map<string, string>>> {
+  private getDatabases(): Promise<Array<JsonObj>> {
     return this.$axios
-      .$get("/sirix/", {headers: {'accept': 'application/json'}})
+      .$get("sirix/", {headers: {'accept': 'application/json'}})
       .then((res: any) => {
-        console.log(res['databases'])
-        return Promise.resolve(res['databases']);
+        let databases: Array<JsonObj> = res['databases'];
+        console.log(databases)
+        let dataStructure: JsonObj = {};
+        databases.forEach((database: JsonObj) => {
+          // Note: this reflects the current return of data from the server. It is expected to change.
+          dataStructure['lablel'] = `${Object.keys(database)[0]} (${Object.values(database)[0]})`;
+        });
+        console.log(dataStructure)
+        return Promise.resolve([dataStructure]);
       })
       .catch(() => {
         return Promise.resolve(new Array());
