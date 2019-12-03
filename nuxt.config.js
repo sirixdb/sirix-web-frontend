@@ -105,7 +105,7 @@ export default {
   },
   proxy: {
     '/sirix': {
-      target: 'https://localhost:9443/',
+      target: 'https://localhost:9443',
       pathRewrite: {'^/sirix': ''},
       agent: new Agent({ rejectUnauthorized: false })
     }
