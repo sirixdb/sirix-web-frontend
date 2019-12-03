@@ -1,3 +1,5 @@
+global.atob = require("atob");
+
 const strategy = 'keycloak'
 
 export default function ({ app }) {

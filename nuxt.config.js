@@ -96,9 +96,7 @@ export default {
       callback: '/callback',
       home: '/'
     },
-    auth: {
-      plugins: [ { src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js' ]
-    }
+    plugins: [ { src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js' ]
   },
   router: {
     middleware: ['auth']
