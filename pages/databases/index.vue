@@ -44,16 +44,10 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { JsonObj } from "vue-meta/types/vue-meta";
 
 @Component
-export default class TreeView extends Vue {
+export default class DatabasesView extends Vue {
   created() {
-    console.log("begin");
     this.getDatabases().then(databases => {
       this.databases = databases;
-    });
-    this.databases.forEach(element => {
-      for (let database in element.keys) {
-        this.getResources(database);
-      }
     });
   }
 
@@ -62,9 +56,10 @@ export default class TreeView extends Vue {
 
   private getDatabases(): Promise<Array<Map<string, string>>> {
     return this.$axios
-      .$get("/sirix")
+      .$get("/sirix/", {headers: {'accept': 'application/json'}})
       .then((res: any) => {
-        return Promise.resolve(res.data);
+        console.log(res['databases'])
+        return Promise.resolve(res['databases']);
       })
       .catch(() => {
         return Promise.resolve(new Array());
@@ -72,10 +67,10 @@ export default class TreeView extends Vue {
   }
 
   private getResources(database: string) {
-    this.$axios
+    return this.$axios
       .$get(`sirix/${database}`)
       .then((res: any) => {
-        console.log(res.data);
+        return res.data;
       })
       .catch(() => {
         return Promise.resolve(new Array());
@@ -109,7 +104,12 @@ export default class TreeView extends Vue {
       .$put(`sirix/${name}`, { "content-type": databaseType })
       .then((res: any) => {
         console.log(res);
-        return true;
+      }).then(() => {
+        return this.$axios
+          .$put(`sirix/${name}/`)
+          .then((res: any) => {
+            return true;
+          })
       })
       .catch(e => {
         console.log(e);
