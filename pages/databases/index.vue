@@ -9,9 +9,11 @@
     </el-button-group>
     <el-dialog title="Create New Database" :visible.sync="databaseDialogFormVisible">
       <el-form :model="databaseForm">
-        <el-form-item label="Database name" required="true">
+        <el-form-item label="Database name">
           <el-input v-model="databaseForm.name" autocomplete="off"></el-input>
-          <el-select v-model="databaseCreateType" placeholder="Database Type">
+        </el-form-item>
+        <el-form-item label="Database type">
+          <el-select v-model="databaseCreateType" placeholder="Select">
             <el-option
               v-for="item in databaseTypes"
               :key="item.value"
@@ -23,7 +25,12 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="databaseDialogFormVisible = false">Cancel</el-button>
-        <el-button :loading="createDatabaseSpinner" id="confirmDatabaseCreation" type="primary" @click="createNewDatabase()">Create</el-button>
+        <el-button
+          :loading="createDatabaseSpinner"
+          id="confirmDatabaseCreation"
+          type="primary"
+          @click="createNewDatabase()"
+        >Create</el-button>
       </span>
     </el-dialog>
 
@@ -34,7 +41,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { JsonObj } from 'vue-meta/types/vue-meta';
+import { JsonObj } from "vue-meta/types/vue-meta";
 
 @Component
 export default class TreeView extends Vue {
@@ -77,27 +84,29 @@ export default class TreeView extends Vue {
 
   private databaseForm = { name: "" };
   private databaseTypes: Array<JsonObj> = [
-    {label: 'XML Database', value: 'application/xml'},
-    {label: 'JSON Database', value: 'application/json'}
+    { label: "XML Database", value: "application/xml" },
+    { label: "JSON Database", value: "application/json" }
   ];
-  private databaseCreateType: string = '';
+  private databaseCreateType: string = "";
   private createDatabaseSpinner: boolean = false;
   private databaseDialogFormVisible = false;
 
   private createNewDatabase(): void {
     this.createDatabaseSpinner = true;
-    this.newDatabase(this.databaseForm.name, this.databaseCreateType).then((success: boolean) => {
-      if (success) {
-        this.databaseDialogFormVisible = false;
-      } else {
+    this.newDatabase(this.databaseForm.name, this.databaseCreateType).then(
+      (success: boolean) => {
+        if (success) {
+          this.databaseDialogFormVisible = false;
+        } else {
+        }
+        this.createDatabaseSpinner = false;
       }
-      this.createDatabaseSpinner = false;
-    });
+    );
   }
 
   private newDatabase(name: string, databaseType: string): Promise<boolean> {
     return this.$axios
-      .$put(`sirix/${name}`, {'content-type': databaseType})
+      .$put(`sirix/${name}`, { "content-type": databaseType })
       .then((res: any) => {
         console.log(res);
         return true;
