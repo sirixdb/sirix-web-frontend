@@ -81,16 +81,20 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
 <table>
   <tr>
     <td align="center"><a href="https://github.com/simhol"><img src="https://avatars3.githubusercontent.com/u/4987937?v=4" width="100px;" alt="Simon Holdorf"/><br /><sub><b>Simon Holdorf</b></sub></a><br /><a href="https://github.com/sirixdb/sirix-web-frontend/commits?author=simhol" title="Code">💻</a></td>
     <td align="center"><a href="http://www.codingyang.com"><img src="https://avatars3.githubusercontent.com/u/18388400?v=4" width="100px;" alt="yang"/><br /><sub><b>yang</b></sub></a><br /><a href="https://github.com/sirixdb/sirix-web-frontend/commits?author=Rackar" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/pareshjoshi"><img src="https://avatars1.githubusercontent.com/u/6260967?v=4" width="100px;" alt="Atman"/><br /><sub><b>Atman</b></sub></a><br /><a href="https://github.com/sirixdb/sirix-web-frontend/commits?author=pareshjoshi" title="Code">💻</a></td>
     <td align="center"><a href="https://www.jawahar.tech/"><img src="https://avatars0.githubusercontent.com/u/14835387?v=4" width="100px;" alt="Jawahar"/><br /><sub><b>Jawahar</b></sub></a><br /><a href="https://github.com/sirixdb/sirix-web-frontend/commits?author=jawahars16" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/mosheduminer"><img src="https://avatars1.githubusercontent.com/u/47164590?v=4" width="100px;" alt="Moshe Uminer"/><br /><sub><b>Moshe Uminer</b></sub></a><br /><a href="https://github.com/sirixdb/sirix-web-frontend/commits?author=mosheduminer" title="Code">💻</a></td>
   </tr>
 </table>
 
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
