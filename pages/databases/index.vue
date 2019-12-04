@@ -60,13 +60,16 @@ export default class DatabasesView extends Vue {
       .then((res: any) => {
         let databases: Array<JsonObj> = res['databases'];
         console.log(databases)
-        let dataStructure: JsonObj = {};
+        let dataStructure: Array<JsonObj> = [];
         databases.forEach((database: JsonObj) => {
           // Note: this reflects the current return of data from the server. It is expected to change.
-          dataStructure['lablel'] = `${Object.keys(database)[0]} (${Object.values(database)[0]})`;
+          let node: JsonObj = {};
+          node['label'] = `${Object.keys(database)[0]} (${Object.values(database)[0]})`;
+          dataStructure.push(node);
+          console.log(node)
         });
         console.log(dataStructure)
-        return Promise.resolve([dataStructure]);
+        return Promise.resolve(dataStructure);
       })
       .catch(() => {
         return Promise.resolve(new Array());
@@ -111,12 +114,7 @@ export default class DatabasesView extends Vue {
       .$put(`sirix/${name}`, { "content-type": databaseType })
       .then((res: any) => {
         console.log(res);
-      }).then(() => {
-        return this.$axios
-          .$put(`sirix/${name}/`)
-          .then((res: any) => {
-            return true;
-          })
+        return true;
       })
       .catch(e => {
         console.log(e);
