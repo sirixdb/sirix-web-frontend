@@ -56,24 +56,29 @@ export default class DatabasesView extends Vue {
 
   private getDatabases(): Promise<Array<JsonObj>> {
     return this.$axios
-      .$get("sirix/", {headers: {'accept': 'application/json'}})
+      .$get("sirix/", { headers: { accept: "application/json" } })
       .then((res: any) => {
-        let databases: Array<JsonObj> = res['databases'];
-        console.log(databases)
-        let dataStructure: Array<JsonObj> = [];
+        let databases: Array<JsonObj> = res["databases"];
+        console.log(databases);
+        let data: Array<JsonObj> = [];
         databases.forEach((database: JsonObj) => {
           let node: JsonObj = {};
-          node['label'] = `${database.name} (${database.type})`;
-          dataStructure.push(node);
+          node["label"] = `${database.name} (${database.type})`;
+          data.push(node);
         });
-        return Promise.resolve(dataStructure);
+        return Promise.resolve(this.sortDatabases(data));
       })
       .catch(() => {
         return Promise.resolve(new Array());
       });
   }
 
-  private getResources(database: string) {
+  private sortDatabases(databases: Array<JsonObj>): Array<JsonObj> {
+    databases.sort((d1: JsonObj, d2: JsonObj) => String(d1.label).localeCompare(String(d2.label)));
+    return databases;
+  }
+
+  private getResources(database: string, databaseType: string) {
     return this.$axios
       .$get(`sirix/${database}`)
       .then((res: any) => {
@@ -95,10 +100,15 @@ export default class DatabasesView extends Vue {
 
   private createNewDatabase(): void {
     this.createDatabaseSpinner = true;
-    this.newDatabase(this.databaseForm.name, this.databaseCreateType).then(
+    let databaseName = this.databaseForm.name;
+    let databaseType = this.databaseCreateType;
+    this.newDatabase(databaseName, databaseType).then(
       (success: boolean) => {
         if (success) {
+          const type = databaseType.substring(databaseType.indexOf("/") + 1);
           this.databaseDialogFormVisible = false;
+          this.databases.push({label: `${databaseName} (${type})`})
+          this.databases = this.sortDatabases(this.databases);
         } else {
         }
         this.createDatabaseSpinner = false;
@@ -107,8 +117,9 @@ export default class DatabasesView extends Vue {
   }
 
   private newDatabase(name: string, databaseType: string): Promise<boolean> {
+    console.log(databaseType);
     return this.$axios
-      .$put(`sirix/${name}`, { "content-type": databaseType })
+      .$put(`sirix/${name}`, {}, { headers: { 'Content-Type': databaseType } } )
       .then((res: any) => {
         console.log(res);
         return true;
