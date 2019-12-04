@@ -66,9 +66,7 @@ export default class DatabasesView extends Vue {
           let node: JsonObj = {};
           node['label'] = `${Object.keys(database)[0]} (${Object.values(database)[0]})`;
           dataStructure.push(node);
-          console.log(node)
         });
-        console.log(dataStructure)
         return Promise.resolve(dataStructure);
       })
       .catch(() => {
