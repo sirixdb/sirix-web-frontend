@@ -62,9 +62,8 @@ export default class DatabasesView extends Vue {
         console.log(databases)
         let dataStructure: Array<JsonObj> = [];
         databases.forEach((database: JsonObj) => {
-          // Note: this reflects the current return of data from the server. It is expected to change.
           let node: JsonObj = {};
-          node['label'] = `${Object.keys(database)[0]} (${Object.values(database)[0]})`;
+          node['label'] = `${database.name} (${database.type})`;
           dataStructure.push(node);
         });
         return Promise.resolve(dataStructure);
