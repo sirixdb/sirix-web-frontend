@@ -74,7 +74,7 @@ export default class DatabasesView extends Vue {
   }
 
   private sortDatabases(databases: Array<JsonObj>): Array<JsonObj> {
-    databases.sort((d1: JsonObj, d2: JsonObj) => String(d1.label).localeCompare(String(d2.label)));
+    databases.sort((d1, d2) => String(d1.label).localeCompare(String(d2.label)));
     return databases;
   }
 
@@ -108,7 +108,7 @@ export default class DatabasesView extends Vue {
           const type = databaseType.substring(databaseType.indexOf("/") + 1);
           this.databaseDialogFormVisible = false;
           this.databases.push({label: `${databaseName} (${type})`})
-          this.databases = this.sortDatabases(this.databases);
+          this.sortDatabases(this.databases);
         } else {
         }
         this.createDatabaseSpinner = false;
