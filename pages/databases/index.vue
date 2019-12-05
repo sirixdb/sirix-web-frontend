@@ -64,6 +64,7 @@ export default class DatabasesView extends Vue {
         databases.forEach((database: JsonObj) => {
           let node: JsonObj = {};
           node["label"] = `${database.name} (${database.type})`;
+          node["children"] = [{ "label" : "resource" }];
           data.push(node);
         });
         return Promise.resolve(this.sortDatabases(data));
@@ -117,7 +118,6 @@ export default class DatabasesView extends Vue {
   }
 
   private newDatabase(name: string, databaseType: string): Promise<boolean> {
-    console.log(databaseType);
     return this.$axios
       .$put(`sirix/${name}`, {}, { headers: { 'Content-Type': databaseType } } )
       .then((res: any) => {

@@ -89,6 +89,7 @@ export default {
         token_key: 'access_token',
         client_id: 'sirix',
         redirect_uri: 'http://localhost:3005/callback',
+        
       },
     },
     redirect: {
