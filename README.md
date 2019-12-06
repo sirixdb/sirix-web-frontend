@@ -40,7 +40,7 @@ In order to use `docker-compose`:
 
 1. `git clone https://github.com/sirixdb/sirix-web-frontend.git`
 2. Start Keyclock with the command `sudo docker-compose up waitforkeycloak` from your sirixdb directory with the copied `docker-compose.yml` file.
-3. In your browser navigate to http://127.0.0.1:8080 and click on the link "Administration Console".
+3. In your browser navigate to http://127.0.0.1:8080 and click on the link "Administration Console" (if using Docker Toolbox, see below).
 4. Use username "admin", password "admin" to log in.
 5. Navigate to `Clients` => `sirix`.
 6. Set `Standard Flow Enabled`.
@@ -75,7 +75,7 @@ proxy: {
     }
   }
 ```
-> 3. Change redirect URL in Keycloack.
+> 3. The URL for Keycloak in step 3 above is http://<your docker host>:8080
 
 Setting up the Nuxt.js application:
 
