@@ -42,6 +42,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { JsonObj } from "vue-meta/types/vue-meta";
+import { JsonVal } from "vue-meta/types/vue-meta";
 
 @Component
 export default class DatabasesView extends Vue {
@@ -59,13 +60,24 @@ export default class DatabasesView extends Vue {
       .$get("sirix/", { headers: { accept: "application/json" } })
       .then((res: any) => {
         let databases: Array<JsonObj> = res["databases"];
-        console.log(databases);
         let data: Array<JsonObj> = [];
         databases.forEach((database: JsonObj) => {
-          let node: JsonObj = {};
-          node["label"] = `${database.name} (${database.type})`;
-          node["children"] = [{ "label" : "resource" }];
-          data.push(node);
+          let databaseNode: JsonObj = {};
+          databaseNode["label"] = `${database.name} (${database.type})`;
+          
+          let resources = database["resources"] as JsonVal[];
+          let resourcesNode: JsonVal[] = [];
+
+          if (resources != null) {
+            resources.forEach((resource: JsonVal) => {
+              let resourceNode: JsonObj = {};
+              resourceNode["label"] = resource;
+              resourcesNode.push(resourceNode);
+            });
+          }
+
+          databaseNode["children"] = resourcesNode;
+          data.push(databaseNode);
         });
         return Promise.resolve(this.sortDatabases(data));
       })
