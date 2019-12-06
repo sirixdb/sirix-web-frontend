@@ -79,6 +79,8 @@ proxy: {
 ```
 > 3. Change redirect URL in Keycloack.
 
+Setting up the Nuxt.js application:
+
 ``` bash
 # install dependencies
 $ npm install
