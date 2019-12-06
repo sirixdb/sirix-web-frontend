@@ -38,25 +38,46 @@ We've created a `Dockerfile` and a `docker-compose.yml` file to simplify the set
 
 In order to use `docker-compose`:
 
-1. `mkdir sirixdb`
-2. `git clone https://github.com/sirixdb/sirix.git`
-3. `git clone https://github.com/sirixdb/sirix-web-frontend.git`
-4. Copy the `docker-compose.yml` file from `sirix-web-frontend` to your `sirixdb` parent folder.
-5. Start Keyclock with the command `sudo docker-compose up waitforkeycloak` from your sirixdb directory with the copied `docker-compose.yml` file.
-6. In your browser navigate to http://127.0.0.1:8080 and click on the link "Administration Console".
-7. Use username "admin", password "admin" to log in.
-8. Navigate to `Clients` => `sirix`.
-9. Set `Standard Flow Enabled`.
-10. Set redirect URL to `http://localhost:3005/callback`.
-11. Navigate to the `Credentials` tab and generate a new secret.
-12. Put this secret in `sirix/bundles/sirix-rest-api/src/main/resources/sirix-conf.json` as the value for `client.secret`. Make sure that the `oAuthFlowType` is set to `AUTH_CODE`
-13. Create a user: `Users` => `Add User` => Username admin. Under `Credentials` => New password => admin / admin. Set Temporary to off. Under `Role Mappings` add the 4 roles: `create`, `delete`, `modify`, `view`.
-13. Start the SirixDB HTTP-Server with the command `sudo docker-compose up -d server`
-13. Start the Node.js Server without Docker: `npm run dev`
-14. In your browser call http://localhost:3005 and the frontend should appear.
+1. `git clone https://github.com/sirixdb/sirix-web-frontend.git`
+2. Start Keyclock with the command `sudo docker-compose up waitforkeycloak` from your sirixdb directory with the copied `docker-compose.yml` file.
+3. In your browser navigate to http://127.0.0.1:8080 and click on the link "Administration Console" (if using Docker Toolbox, see below).
+4. Use username "admin", password "admin" to log in.
+5. Navigate to `Clients` => `sirix`.
+6. Set `Standard Flow Enabled`.
+7. Set redirect URL to `http://localhost:3005/callback`.
+8. Navigate to the `Credentials` tab and generate a new secret.
+9. Put this secret in `sirix/bundles/sirix-rest-api/src/main/resources/sirix-conf.json` as the value for `client.secret`. Make sure that the `oAuthFlowType` is set to `AUTH_CODE`
+10. Create a user: `Users` => `Add User` => Username admin. Under `Credentials` => New password => admin / admin. Set Temporary to off. Under `Role Mappings` add the 4 roles: `create`, `delete`, `modify`, `view`.
+11. Start the SirixDB HTTP-Server with the command `sudo docker-compose up -d server`.
+12. Start the Node.js Server without Docker: `npm run dev`.
+13. In your browser call http://localhost:3005 and the frontend should appear.
 
+> NOTE:
+> For those using Docker Toolbox instead of Docker to run Keycloak and Sirix, you will need to do the following:
+> 1. Find your Docker IP (you should see it when starting Docker Quickstart Terminal).
+> 2. Go to the nuxt.config.js file, and change 
+```
+proxy: {
+    '/sirix': {
+      target: 'https://localhost:9443',
+      pathRewrite: {'^/sirix': ''},
+      agent: new Agent({ rejectUnauthorized: false })
+    }
+  }
+```
+> to
+```
+  proxy: {
+    '/sirix': {
+      target: 'https://<your docker host>:9443',
+      pathRewrite: {'^/sirix': ''},
+      agent: new Agent({ rejectUnauthorized: false })
+    }
+  }
+```
+> 3. The URL for Keycloak in step 3 above is `http://<your docker host>:8080`.
 
-Without Docker for setting up the web frontend:
+Setting up the Nuxt.js application:
 
 ``` bash
 # install dependencies

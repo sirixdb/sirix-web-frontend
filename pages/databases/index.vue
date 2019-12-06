@@ -13,7 +13,7 @@
           <el-input v-model="databaseForm.name" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Database type">
-          <el-select v-model="databaseCreateType" placeholder="Select">
+          <el-select v-model="databaseForm.type" placeholder="Select">
             <el-option
               v-for="item in databaseTypes"
               :key="item.value"
@@ -102,19 +102,19 @@ export default class DatabasesView extends Vue {
       });
   }
 
-  private databaseForm = { name: "" };
+  private databaseForm = { name: "", type: "" };
   private databaseTypes: Array<JsonObj> = [
     { label: "XML Database", value: "application/xml" },
     { label: "JSON Database", value: "application/json" }
   ];
-  private databaseCreateType: string = "";
   private createDatabaseSpinner: boolean = false;
   private databaseDialogFormVisible = false;
 
   private createNewDatabase(): void {
     this.createDatabaseSpinner = true;
     let databaseName = this.databaseForm.name;
-    let databaseType = this.databaseCreateType;
+    let databaseType = this.databaseForm.type;
+    this.databaseForm = { name: "", type: ""}
     this.newDatabase(databaseName, databaseType).then(
       (success: boolean) => {
         if (success) {
