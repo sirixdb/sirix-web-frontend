@@ -75,7 +75,7 @@ proxy: {
     }
   }
 ```
-> 3. The URL for Keycloak in step 3 above is http://<your docker host>:8080
+> 3. The URL for Keycloak in step 3 above is `http://<your docker host>:8080`.
 
 Setting up the Nuxt.js application:
 
