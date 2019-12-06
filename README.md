@@ -55,6 +55,8 @@ In order to use `docker-compose`:
 13. Start the Node.js Server without Docker: `npm run dev`
 14. In your browser call http://localhost:3005 and the frontend should appear.
 
+Without Docker for setting up the web frontend:
+
 > NOTE:
 > For those using Docker Toolbox instead of Docker to run Keycloak and Sirix, you will need to do the following:
 > 1. Find your Docker IP (you should see it when starting Docker Quickstart Terminal).
@@ -77,9 +79,7 @@ proxy: {
       agent: new Agent({ rejectUnauthorized: false })
     }
   }
-  ```
-
-Without Docker for setting up the web frontend:
+```
 
 ``` bash
 # install dependencies
