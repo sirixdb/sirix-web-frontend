@@ -35,14 +35,21 @@
     </el-dialog>
 
     <h3>Databases</h3>
-    <el-tree :data="databases" :props="defaultProps"></el-tree>
+    <el-tree :data="databases" :props="defaultProps" @node-click="handleNodeClick" />
+    <!-- <FileUpload v-if="addResource" options="options" /> -->
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { JsonObj } from "vue-meta/types/vue-meta";
-import { JsonVal } from "vue-meta/types/vue-meta";
+import { JsonObj, JsonVal } from "vue-meta/types/vue-meta";
+import FileUpload from "@/components/FileUpload.vue";
+
+@Component({
+  components: {
+    FileUpload
+  }
+})
 
 @Component
 export default class DatabasesView extends Vue {
@@ -54,13 +61,33 @@ export default class DatabasesView extends Vue {
 
   private databases: Array<JsonObj> = [];
   private defaultProps = this.databases;
+  private addResource = false;
+  private fileUploadOptions = {};
+
+  private handleNodeClick(treeNode: JsonObj) {
+    this.addResource = true;
+
+    const label = treeNode.label as String;
+    const databaseName = label.substring(0, label.indexOf(" "));
+
+    console.log(databaseName);
+    const databaseType = label.substring(label.indexOf(" ") + 2, label.length -1);
+    console.log(databaseType);
+
+    this.fileUploadOptions = {
+      "options": `sirix/${databaseName}`,
+      "headers": {
+        "content-type": `application/${databaseType}`
+      }
+     };
+  }
 
   private getDatabases(): Promise<Array<JsonObj>> {
     return this.$axios
       .$get("sirix?withResources=true", { headers: { accept: "application/json" } })
       .then((res: any) => {
         let databases: Array<JsonObj> = res["databases"];
-        let data: Array<JsonObj> = [];
+        let treeData: Array<JsonObj> = [];
         databases.forEach((database: JsonObj) => {
           let databaseNode: JsonObj = {};
           databaseNode["label"] = `${database.name} (${database.type})`;
@@ -77,9 +104,9 @@ export default class DatabasesView extends Vue {
           }
 
           databaseNode["children"] = resourcesNode;
-          data.push(databaseNode);
+          treeData.push(databaseNode);
         });
-        return Promise.resolve(this.sortDatabases(data));
+        return Promise.resolve(this.sortDatabases(treeData));
       })
       .catch(() => {
         return Promise.resolve(new Array());
@@ -122,7 +149,6 @@ export default class DatabasesView extends Vue {
           this.databaseDialogFormVisible = false;
           this.databases.push({label: `${databaseName} (${type})`})
           this.sortDatabases(this.databases);
-        } else {
         }
         this.createDatabaseSpinner = false;
       }
@@ -133,11 +159,9 @@ export default class DatabasesView extends Vue {
     return this.$axios
       .$put(`sirix/${name}`, {}, { headers: { 'Content-Type': databaseType } } )
       .then((res: any) => {
-        console.log(res);
         return true;
       })
       .catch(e => {
-        console.log(e);
         return false;
       });
   }
