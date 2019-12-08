@@ -36,7 +36,7 @@
 
     <h3>Databases</h3>
     <el-tree :data="databases" :props="defaultProps" @node-click="handleNodeClick" />
-    <!-- <FileUpload v-if="addResource" options="options" /> -->
+    <file-upload v-if="addResource" options="fileUploadOptions" />
   </div>
 </template>
 
@@ -50,8 +50,6 @@ import FileUpload from "@/components/FileUpload.vue";
     FileUpload
   }
 })
-
-@Component
 export default class DatabasesView extends Vue {
   created() {
     this.getDatabases().then(databases => {
@@ -69,17 +67,17 @@ export default class DatabasesView extends Vue {
 
     const label = treeNode.label as String;
     const databaseName = label.substring(0, label.indexOf("(") - 1);
-
-    console.log(databaseName);
     const databaseType = label.substring(label.indexOf("(") + 1, label.indexOf(")"));
-    console.log(databaseType);
 
     this.fileUploadOptions = {
-      "options": `sirix/${databaseName}`,
-      "headers": {
-        "content-type": `application/${databaseType}`
+      options: {
+        url: `sirix/${databaseName}`,
+        headers: {
+          "content-type": `application/${databaseType}`
+        }
       }
-     };
+    };
+    console.log(this.fileUploadOptions);
   }
 
   private getDatabases(): Promise<Array<JsonObj>> {
