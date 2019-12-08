@@ -36,7 +36,7 @@
 
     <h3>Databases</h3>
     <el-tree :data="databases" :props="defaultProps" @node-click="handleNodeClick" />
-    <file-upload v-if="addResource" v-bind="fileUploadOptions" style="width: 50vw; float: right;" />
+    <file-upload v-if="addResource" v-bind:options="fileUploadOptions" style="width: 50vw; float: right;" />
   </div>
 </template>
 
@@ -71,22 +71,19 @@ export default class DatabasesView extends Vue {
       label.indexOf("(") + 1,
       label.indexOf(")")
     );
-    
+
     let acceptedFiles = "";
 
-      if (databaseType == "json") 
-        acceptedFiles = "text/json";
-      else (databaseType == "xml")
-        acceptedFiles = "text/xml";
+    if (databaseType == "json") acceptedFiles = "application/json";
+    else if (databaseType == "xml")
+    acceptedFiles = "application/xml";
     console.log(acceptedFiles);
 
     this.fileUploadOptions = {
-      options: {
-        url: `${this.$axios.defaults.baseURL}/sirix/${databaseName}`,
-        headers: {
-          "Cache-Control": "",
-          "Authorization": this.$auth.getToken('keycloak'),
-        }
+      url: `${this.$axios.defaults.baseURL}/sirix/${databaseName}`,
+      headers: {
+        "Cache-Control": "",
+        Authorization: this.$auth.getToken("keycloak")
       },
       acceptedFiles: `${acceptedFiles}`
     };
@@ -171,7 +168,7 @@ export default class DatabasesView extends Vue {
 
   private newDatabase(name: string, databaseType: string): Promise<boolean> {
     return this.$axios
-      .$put(`sirix/${name}`, {}, { headers: { 'content-type': databaseType } })
+      .$put(`sirix/${name}`, {}, { headers: { "content-type": databaseType } })
       .then((res: any) => {
         return true;
       })
