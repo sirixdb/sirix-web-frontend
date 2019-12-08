@@ -68,10 +68,10 @@ export default class DatabasesView extends Vue {
     this.addResource = true;
 
     const label = treeNode.label as String;
-    const databaseName = label.substring(0, label.indexOf(" "));
+    const databaseName = label.substring(0, label.indexOf("(") - 1);
 
     console.log(databaseName);
-    const databaseType = label.substring(label.indexOf(" ") + 2, label.length -1);
+    const databaseType = label.substring(label.indexOf("(") + 1, label.indexOf(")"));
     console.log(databaseType);
 
     this.fileUploadOptions = {
