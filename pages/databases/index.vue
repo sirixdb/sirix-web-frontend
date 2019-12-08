@@ -36,7 +36,11 @@
 
     <h3>Databases</h3>
     <el-tree :data="databases" :props="defaultProps" @node-click="handleNodeClick" />
-    <file-upload v-if="addResource" v-bind:options="fileUploadOptions" style="width: 50vw; float: right;" />
+    <file-upload
+      v-if="addResource"
+      v-bind:options="fileUploadOptions"
+      style="width: 50vw; float: right;"
+    />
   </div>
 </template>
 
@@ -75,9 +79,7 @@ export default class DatabasesView extends Vue {
     let acceptedFiles = "";
 
     if (databaseType == "json") acceptedFiles = "application/json";
-    else if (databaseType == "xml")
-    acceptedFiles = "application/xml";
-    console.log(acceptedFiles);
+    else if (databaseType == "xml") acceptedFiles = "application/xml";
 
     this.fileUploadOptions = {
       url: `${this.$axios.defaults.baseURL}/sirix/${databaseName}`,
@@ -87,7 +89,6 @@ export default class DatabasesView extends Vue {
       },
       acceptedFiles: `${acceptedFiles}`
     };
-    console.log(this.fileUploadOptions);
   }
 
   private getDatabases(): Promise<Array<JsonObj>> {
