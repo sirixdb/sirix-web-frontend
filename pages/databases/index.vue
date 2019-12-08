@@ -36,7 +36,7 @@
 
     <h3>Databases</h3>
     <el-tree :data="databases" :props="defaultProps" @node-click="handleNodeClick" />
-    <file-upload v-if="addResource" options="fileUploadOptions" />
+    <file-upload v-if="addResource" :options="fileUploadOptions" />
   </div>
 </template>
 
