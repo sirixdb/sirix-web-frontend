@@ -11,12 +11,6 @@ export default {
     Dropzone
   },
   props: ["options"],
-  data() {
-    return {
-      // See https://rowanwins.github.io/vue-dropzone/docs/dist/index.html#/props
-      options: {},
-    }
-  },
   mounted() {
     // Everything is mounted and you can access the dropzone instance
     const instance = this.$refs.el.dropzone
