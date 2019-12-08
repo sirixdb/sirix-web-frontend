@@ -36,7 +36,7 @@
 
     <h3>Databases</h3>
     <el-tree :data="databases" :props="defaultProps" @node-click="handleNodeClick" />
-    <file-upload v-if="addResource" v-bind:options="fileUploadOptions" />
+    <file-upload v-if="addResource" v-bind:options="fileUploadOptions" style="width: 1000px; float: left;" />
   </div>
 </template>
 
@@ -71,12 +71,22 @@ export default class DatabasesView extends Vue {
       label.indexOf("(") + 1,
       label.indexOf(")")
     );
+    
+    let acceptedFiles = "";
+
+      if (databaseType == "json") 
+        acceptedFiles = "text/json";
+      else (databaseType == "xml")
+        acceptedFiles = "text/xml";
+    console.log(acceptedFiles);
 
     this.fileUploadOptions = {
-      url: `sirix/${databaseName}`,
+      url: `https://localhost:9443/${databaseName}`,
       headers: {
-        "content-type": `application/${databaseType}`
-      }
+        "Cache-Control": "",
+        "Authorization": `Bearer ${this.$auth.getToken('keycloak')}`,
+      },
+      acceptedFiles: `${acceptedFiles}`
     };
     console.log(this.fileUploadOptions);
   }
@@ -145,6 +155,7 @@ export default class DatabasesView extends Vue {
     this.createDatabaseSpinner = true;
     let databaseName = this.databaseForm.name;
     let databaseType = this.databaseForm.type;
+
     this.newDatabase(databaseName, databaseType).then((success: boolean) => {
       if (success) {
         const type = databaseType.substring(databaseType.indexOf("/") + 1);
@@ -158,7 +169,7 @@ export default class DatabasesView extends Vue {
 
   private newDatabase(name: string, databaseType: string): Promise<boolean> {
     return this.$axios
-      .$put(`sirix/${name}`, {}, { headers: { "Content-Type": databaseType } })
+      .$put(`sirix/${name}`, {}, { headers: { 'content-type': databaseType } })
       .then((res: any) => {
         return true;
       })
@@ -168,3 +179,14 @@ export default class DatabasesView extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.el-tree {
+  width: 800px;
+  float: left;
+}
+.file-upload {
+  width: 1000px;
+  float: left;
+}
+</style>
