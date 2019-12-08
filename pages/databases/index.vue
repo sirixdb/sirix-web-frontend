@@ -36,7 +36,7 @@
 
     <h3>Databases</h3>
     <el-tree :data="databases" :props="defaultProps" @node-click="handleNodeClick" />
-    <file-upload v-if="addResource" :options="fileUploadOptions" />
+    <file-upload v-if="addResource" v-bind:options="fileUploadOptions" />
   </div>
 </template>
 
@@ -67,14 +67,15 @@ export default class DatabasesView extends Vue {
 
     const label = treeNode.label as String;
     const databaseName = label.substring(0, label.indexOf("(") - 1);
-    const databaseType = label.substring(label.indexOf("(") + 1, label.indexOf(")"));
+    const databaseType = label.substring(
+      label.indexOf("(") + 1,
+      label.indexOf(")")
+    );
 
     this.fileUploadOptions = {
-      options: {
-        url: `sirix/${databaseName}`,
-        headers: {
-          "content-type": `application/${databaseType}`
-        }
+      url: `sirix/${databaseName}`,
+      headers: {
+        "content-type": `application/${databaseType}`
       }
     };
     console.log(this.fileUploadOptions);
@@ -82,14 +83,16 @@ export default class DatabasesView extends Vue {
 
   private getDatabases(): Promise<Array<JsonObj>> {
     return this.$axios
-      .$get("sirix?withResources=true", { headers: { accept: "application/json" } })
+      .$get("sirix?withResources=true", {
+        headers: { accept: "application/json" }
+      })
       .then((res: any) => {
         let databases: Array<JsonObj> = res["databases"];
         let treeData: Array<JsonObj> = [];
         databases.forEach((database: JsonObj) => {
           let databaseNode: JsonObj = {};
           databaseNode["label"] = `${database.name} (${database.type})`;
-          
+
           let resources = database["resources"] as JsonVal[];
           let resourcesNode: JsonVal[] = [];
 
@@ -112,7 +115,9 @@ export default class DatabasesView extends Vue {
   }
 
   private sortDatabases(databases: Array<JsonObj>): Array<JsonObj> {
-    databases.sort((d1, d2) => String(d1.label).localeCompare(String(d2.label)));
+    databases.sort((d1, d2) =>
+      String(d1.label).localeCompare(String(d2.label))
+    );
     return databases;
   }
 
@@ -140,22 +145,20 @@ export default class DatabasesView extends Vue {
     this.createDatabaseSpinner = true;
     let databaseName = this.databaseForm.name;
     let databaseType = this.databaseForm.type;
-    this.newDatabase(databaseName, databaseType).then(
-      (success: boolean) => {
-        if (success) {
-          const type = databaseType.substring(databaseType.indexOf("/") + 1);
-          this.databaseDialogFormVisible = false;
-          this.databases.push({label: `${databaseName} (${type})`})
-          this.sortDatabases(this.databases);
-        }
-        this.createDatabaseSpinner = false;
+    this.newDatabase(databaseName, databaseType).then((success: boolean) => {
+      if (success) {
+        const type = databaseType.substring(databaseType.indexOf("/") + 1);
+        this.databaseDialogFormVisible = false;
+        this.databases.push({ label: `${databaseName} (${type})` });
+        this.sortDatabases(this.databases);
       }
-    );
+      this.createDatabaseSpinner = false;
+    });
   }
 
   private newDatabase(name: string, databaseType: string): Promise<boolean> {
     return this.$axios
-      .$put(`sirix/${name}`, {}, { headers: { 'Content-Type': databaseType } } )
+      .$put(`sirix/${name}`, {}, { headers: { "Content-Type": databaseType } })
       .then((res: any) => {
         return true;
       })

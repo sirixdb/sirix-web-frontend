@@ -1,5 +1,5 @@
 <template>
-  <dropzone id="foo" ref="el" :options="options" :destroyDropzone="true"></dropzone>
+  <dropzone id="foo" ref="el" v-bind:options="options" :destroyDropzone="true"></dropzone>
 </template>
 
 <script>
@@ -10,6 +10,7 @@ export default {
   components: {
     Dropzone
   },
+  props: ["options"],
   data() {
     return {
       // See https://rowanwins.github.io/vue-dropzone/docs/dist/index.html#/props
