@@ -18,6 +18,7 @@
     "@nuxtjs/toast": "^3.3.0",
     "axios": "^0.19.0",
     "axios-debug-log": "^0.6.2",
+    "dropzone": "^5.5.1",
     "element-ui": "^2.4.11",
     "fibers": "^4.0.1",
     "fs": "0.0.1-security",
