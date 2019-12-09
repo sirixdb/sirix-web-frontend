@@ -36,7 +36,7 @@
 
     <h3>Databases</h3>
     <el-tree :data="databases" :props="defaultProps" @node-click="handleNodeClick" />
-    <file-upload v-if="addResource" v-bind:options="fileUploadOptions" style="width: 1000px; float: left;" />
+    <file-upload v-if="addResource" v-bind="fileUploadOptions" style="width: 50vw; float: right;" />
   </div>
 </template>
 
@@ -81,10 +81,12 @@ export default class DatabasesView extends Vue {
     console.log(acceptedFiles);
 
     this.fileUploadOptions = {
-      url: `https://localhost:9443/${databaseName}`,
-      headers: {
-        "Cache-Control": "",
-        "Authorization": `Bearer ${this.$auth.getToken('keycloak')}`,
+      options: {
+        url: `${this.$axios.defaults.baseURL}/sirix/${databaseName}`,
+        headers: {
+          "Cache-Control": "",
+          "Authorization": this.$auth.getToken('keycloak'),
+        }
       },
       acceptedFiles: `${acceptedFiles}`
     };
@@ -182,11 +184,7 @@ export default class DatabasesView extends Vue {
 
 <style scoped>
 .el-tree {
-  width: 800px;
-  float: left;
-}
-.file-upload {
-  width: 1000px;
+  width: 40vw;
   float: left;
 }
 </style>
