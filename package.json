@@ -26,15 +26,14 @@
     "mockjs": "^1.0.1-beta3",
     "node-sass": "^4.12.0",
     "nuxt": "^2.0.0",
-    "nuxt-dropzone": "^1.0.4",
     "reflect-metadata": "^0.1.13",
     "register-service-worker": "^1.6.2",
     "sass": "^1.23.0",
     "sass-loader": "^8.0.0",
+    "serialize-javascript": ">=2.1.1",
     "typescript": "^3.6.3",
     "vue-class-component": "^7.1.0",
-    "vue-property-decorator": "^8.2.2",
-    "serialize-javascript": ">=2.1.1"
+    "vue-property-decorator": "^8.2.2"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.3.0",

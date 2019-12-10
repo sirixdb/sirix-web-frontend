@@ -39,7 +39,7 @@
     <file-upload
       v-if="addResource"
       v-bind:options="fileUploadOptions"
-      style="width: 50vw; float: right;"
+      style="width: 50vw; float: right; height: 125px;"
     />
   </div>
 </template>
@@ -83,11 +83,7 @@ export default class DatabasesView extends Vue {
 
     this.fileUploadOptions = {
       url: `${this.$axios.defaults.baseURL}/sirix/${databaseName}`,
-      headers: {
-        "Cache-Control": "",
-        Authorization: this.$auth.getToken("keycloak")
-      },
-      acceptedFiles: `${acceptedFiles}`
+      acceptedFiles: acceptedFiles
     };
   }
 
