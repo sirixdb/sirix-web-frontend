@@ -40,6 +40,7 @@
       v-if="addResource"
       v-bind:options="fileUploadOptions"
       style="width: 50vw; float: right; height: 125px;"
+      v-on:uploaded="addChildResource"
     />
   </div>
 </template>
@@ -61,12 +62,23 @@ export default class DatabasesView extends Vue {
     });
   }
 
+  private currentlySelectedTreeNode:JsonObj = {};
   private databases: Array<JsonObj> = [];
   private defaultProps = this.databases;
   private addResource = false;
   private fileUploadOptions = {};
 
+  private addChildResource(formData: FormData) {
+    formData.forEach((value: FormDataEntryValue, key: string, parent: FormData)  => {
+      let resourcesNode = this.currentlySelectedTreeNode.children as JsonVal[];
+      let resourceNode: JsonObj = {};
+      resourceNode["label"] = key;
+      resourcesNode.push(resourceNode);
+    });
+  }
+
   private handleNodeClick(treeNode: JsonObj) {
+    this.currentlySelectedTreeNode = treeNode;
     this.addResource = true;
 
     const label = treeNode.label as String;
