@@ -25,8 +25,9 @@ export default {
         formData.append(input.files[0].name, input.files[0]);
         this.$axios.$post(this.options.url, formData, {
           headers: { "Content-Type": "multipart/form-data" }
-        });
-        this.$emit('uploaded', formData)
+        }).then(() => {
+          this.$emit('uploaded', formData)
+        })
       });
     },
     dragFileUpload: function(ev) {
