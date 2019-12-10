@@ -55,7 +55,9 @@ export default {
       }
       this.$axios.$post(this.options.url, formData, {
         headers: { "Content-Type": "multipart/form-data" }
-      });
+      }).then(() => {
+          this.$emit('uploaded', formData)
+        })
     },
     dragOverHandler: function(ev) {
       console.log("File(s) in drop zone");
