@@ -6,9 +6,7 @@
     @dragover="dragOverHandler"
     @click="click"
     v-on:change="handleFileUploadFromClick()"
-  >
-      Drag files here to upload
-  </div>
+  >Drag files here to upload</div>
 </template>
 
 <script>
@@ -20,14 +18,16 @@ export default {
       input.setAttribute("type", "file");
       input.accept = this.options.acceptedFiles;
       input.click();
-      input.addEventListener("change", (ev) => {
+      input.addEventListener("change", ev => {
         let formData = new FormData();
         formData.append(input.files[0].name, input.files[0]);
-        this.$axios.$post(this.options.url, formData, {
-          headers: { "Content-Type": "multipart/form-data" }
-        }).then(() => {
-          this.$emit('uploaded', formData)
-        })
+        this.$axios
+          .$post(this.options.url, formData, {
+            headers: { "Content-Type": "multipart/form-data" }
+          })
+          .then(() => {
+            this.$emit("uploaded", formData);
+          });
       });
     },
     dragFileUpload: function(ev) {
@@ -53,11 +53,13 @@ export default {
           formData.append(file.name, file.getAsFile());
         }
       }
-      this.$axios.$post(this.options.url, formData, {
-        headers: { "Content-Type": "multipart/form-data" }
-      }).then(() => {
-          this.$emit('uploaded', formData)
+      this.$axios
+        .$post(this.options.url, formData, {
+          headers: { "Content-Type": "multipart/form-data" }
         })
+        .then(() => {
+          this.$emit("uploaded", formData);
+        });
     },
     dragOverHandler: function(ev) {
       console.log("File(s) in drop zone");
@@ -65,7 +67,7 @@ export default {
       // Prevent default behavior (Prevent file from being opened)
       ev.preventDefault();
     }
-  },
+  }
 };
 </script>
 
