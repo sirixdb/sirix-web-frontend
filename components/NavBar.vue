@@ -15,14 +15,25 @@
 <script>
 export default {
   methods: {
-  	loggedIn() {
-      return this.$auth.loggedIn
-   	},
+    loggedIn() {
+      return this.$auth.loggedIn;
+    },
 
     async logout() {
-      await this.$auth.logout()
-      this.$router.push('/login')
+      const options = this.$auth.strategies.keycloak.options;
+      const accessToken = this.$auth.getToken("keycloak");
+      const refreshToken = this.$auth.getRefreshToken("keycloak");
+      await this.$axios.$post(
+        "sirix/logout",
+        {
+          access_token: accessToken.replace(options.token_type + " ", ""),
+          refresh_token: refreshToken.replace(options.token_type + " ", "")
+        },
+        {}
+      );
+      await this.$auth.logout();
+      this.$router.push("/login");
     }
   }
-}
+};
 </script>

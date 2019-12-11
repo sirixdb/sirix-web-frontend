@@ -89,7 +89,6 @@ export default {
         token_key: 'access_token',
         client_id: 'sirix',
         redirect_uri: 'http://localhost:3005/callback',
-        
       },
     },
     redirect: {
@@ -106,6 +105,11 @@ export default {
     '/sirix': {
       target: 'https://localhost:9443',
       pathRewrite: {'^/sirix': ''},
+      agent: new Agent({ rejectUnauthorized: false })
+    },
+    '/keycloak': {
+      target: 'http://localhost:8080',
+      pathRewrite: {'^/keycloak': ''},
       agent: new Agent({ rejectUnauthorized: false })
     }
   }
