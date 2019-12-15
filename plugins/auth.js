@@ -43,6 +43,14 @@ export default function ({ app }) {
       $auth.setRefreshToken(strategy, refreshToken)
       $axios.setToken(token)
     } catch (error) {
+      $axios.$post(
+        "sirix/logout",
+        {
+          access_token: token.replace(options.token_type + " ", ""),
+          refresh_token: refreshToken.replace(options.token_type + " ", "")
+        },
+        {}
+      );
       $auth.logout()
       throw new Error('Error while refreshing token')
     }
