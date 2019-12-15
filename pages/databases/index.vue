@@ -79,7 +79,8 @@ export default class DatabasesView extends Vue {
 
   private handleNodeClick(treeNode: JsonObj) {
     this.currentlySelectedTreeNode = treeNode;
-    this.addResource = true;
+
+    debugger;
 
     const label = treeNode.label as String;
     const databaseName = label.substring(0, label.indexOf("(") - 1);
@@ -88,8 +89,14 @@ export default class DatabasesView extends Vue {
       label.indexOf(")")
     );
 
-    let acceptedFiles = "";
+    if (!databaseType || databaseType.length == 0) {
+      this.addResource = false;
+      return;
+    }
 
+    this.addResource = true;
+    let acceptedFiles = "";
+    
     if (databaseType == "json") acceptedFiles = "application/json";
     else if (databaseType == "xml") acceptedFiles = "application/xml";
 

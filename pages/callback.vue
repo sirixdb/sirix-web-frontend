@@ -1,9 +1,4 @@
-<template>
-  <div>
-    <h1 v-if="loggedIn()">You are logged in.</h1>
-    <h1 v-else="!loggedIn()">You are not logged in.</h1>
-  </div>
-</template>
+<template />
 <script>
 export default {
   props: [
