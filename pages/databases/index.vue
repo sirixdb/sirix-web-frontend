@@ -80,8 +80,6 @@ export default class DatabasesView extends Vue {
   private handleNodeClick(treeNode: JsonObj) {
     this.currentlySelectedTreeNode = treeNode;
 
-    debugger;
-
     const label = treeNode.label as String;
     const databaseName = label.substring(0, label.indexOf("(") - 1);
     const databaseType = label.substring(
