@@ -42,6 +42,10 @@
       style="width: 50vw; float: right; height: 125px;"
       v-on:uploaded="addChildResource"
     />
+    <history
+      v-if="showHistory"
+      style="width: 50vw; float: right; height: 125px;"
+    />
   </div>
 </template>
 
@@ -49,10 +53,12 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { JsonObj, JsonVal } from "vue-meta/types/vue-meta";
 import FileUpload from "@/components/FileUpload.vue";
+import History from "@/components/History.vue";
 
 @Component({
   components: {
-    FileUpload
+    FileUpload,
+    History
   }
 })
 export default class DatabasesView extends Vue {
@@ -66,6 +72,7 @@ export default class DatabasesView extends Vue {
   private databases: Array<JsonObj> = [];
   private defaultProps = this.databases;
   private addResource = false;
+  private showHistory = false;
   private fileUploadOptions = {};
 
   private addChildResource(formData: FormData) {
@@ -89,9 +96,11 @@ export default class DatabasesView extends Vue {
 
     if (!databaseType || databaseType.length == 0) {
       this.addResource = false;
+      this.showHistory = true;
       return;
     }
 
+    this.showHistory = false;
     this.addResource = true;
     let acceptedFiles = "";
     
