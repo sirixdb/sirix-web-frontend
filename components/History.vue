@@ -24,9 +24,9 @@
 </template>
 
 <script>
-props: ["database", "resource", "contentType"];
-
 export default {
+  props: ["database", "resource", "contentType"],
+  
   data() {
     return this.$axios
       .$get(`sirix/${this.database}/${this.resource}/history`, {
