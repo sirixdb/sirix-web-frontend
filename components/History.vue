@@ -25,9 +25,12 @@
 
 <script>
 export default {
-  props: ["database", "resource", "contentType"],
-  
+  props: ["database", "resource", "contentType", "reverse"],
+
   data() {
+    console.log(this.database);
+    console.log(this.resource);
+    console.log(this.contentType);
     return this.$axios
       .$get(`sirix/${this.database}/${this.resource}/history`, {
         headers: { accept: `${this.contentType}` }

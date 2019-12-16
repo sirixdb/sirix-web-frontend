@@ -45,6 +45,10 @@
     <history
       v-if="showHistory"
       style="width: 50vw; float: right; height: 125px;"
+      v-bind:database="databaseName"
+      v-bind:resource="resourceName"
+      v-bind:contentType="contentType"
+      v-bind:reverse="true"
     />
   </div>
 </template>
@@ -68,7 +72,11 @@ export default class DatabasesView extends Vue {
     });
   }
 
-  private currentlySelectedTreeNode:JsonObj = {};
+  private databaseName = "";
+  private databaseType = "";
+  private contentType = "";
+  private resourceName = "";
+  private currentlySelectedTreeNode: JsonObj = {};
   private databases: Array<JsonObj> = [];
   private defaultProps = this.databases;
   private addResource = false;
@@ -76,19 +84,21 @@ export default class DatabasesView extends Vue {
   private fileUploadOptions = {};
 
   private addChildResource(formData: FormData) {
-    formData.forEach((value: FormDataEntryValue, key: string, parent: FormData)  => {
-      let resourcesNode = this.currentlySelectedTreeNode.children as JsonVal[];
-      let resourceNode: JsonObj = {};
-      resourceNode["label"] = key;
-      resourcesNode.push(resourceNode);
-    });
+    formData.forEach(
+      (value: FormDataEntryValue, key: string, parent: FormData) => {
+        let resourcesNode = this.currentlySelectedTreeNode
+          .children as JsonVal[];
+        let resourceNode: JsonObj = {};
+        resourceNode["label"] = key;
+        resourcesNode.push(resourceNode);
+      }
+    );
   }
 
   private handleNodeClick(treeNode: JsonObj) {
     this.currentlySelectedTreeNode = treeNode;
 
-    const label = treeNode.label as String;
-    const databaseName = label.substring(0, label.indexOf("(") - 1);
+    const label = treeNode.label as string;
     const databaseType = label.substring(
       label.indexOf("(") + 1,
       label.indexOf(")")
@@ -97,19 +107,23 @@ export default class DatabasesView extends Vue {
     if (!databaseType || databaseType.length == 0) {
       this.addResource = false;
       this.showHistory = true;
+      this.resourceName = label;
+
       return;
     }
 
+    this.databaseName = label.substring(0, label.indexOf("(") - 1);
+
     this.showHistory = false;
     this.addResource = true;
-    let acceptedFiles = "";
-    
-    if (databaseType == "json") acceptedFiles = "application/json";
-    else if (databaseType == "xml") acceptedFiles = "application/xml";
+    this.contentType = "";
+
+    if (databaseType == "json") this.contentType = "application/json";
+    else if (databaseType == "xml") this.contentType = "application/xml";
 
     this.fileUploadOptions = {
-      url: `${this.$axios.defaults.baseURL}/sirix/${databaseName}`,
-      acceptedFiles: acceptedFiles
+      url: `${this.$axios.defaults.baseURL}/sirix/${this.databaseName}`,
+      acceptedFiles: this.contentType
     };
   }
 
