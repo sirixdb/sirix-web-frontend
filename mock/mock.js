@@ -113,8 +113,23 @@ var compareJson = function() {
   return _data
 }
 
+let historyMock = function() {
+  let _data = []
+  for (let i = 0; i < 10; i++) {
+    let newList = {
+      revision: i,
+      revisionTimestamp: Random.datetime('yyyy-MM-dd HH:mm:ss.SSZ'),
+      author: Random.name(),
+      commitMessage: Random.sentence()
+    }
+    _data.push(newList)
+  }
+  return {data: {history: _data}}
+}
+
 // this rest api path will mock data
 Mock.mock(RegExp('https://localhost:9443/api/history.*'), 'get', listData)
+Mock.mock(RegExp('http://localhost:3005/sirix/.*/.*/history'), 'get', historyMock)
 Mock.mock('https://localhost:9443/api/counts', 'get', countData)
 Mock.mock(RegExp('https://localhost:9443/api/json.*'), 'get', jsonData)
 Mock.mock(RegExp('https://localhost:9443/api/comparejson.*'), 'get', compareJson)
