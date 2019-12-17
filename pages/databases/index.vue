@@ -39,12 +39,12 @@
     <file-upload
       v-if="addResource"
       v-bind:options="fileUploadOptions"
-      style="width: 50vw; float: right; height: 125px;"
+      class=".right-side"
       v-on:uploaded="addChildResource"
     />
     <history
       v-if="showHistory"
-      style="width: 50vw; float: right; height: 125px;"
+      class=".right-side"
       v-bind:database="databaseName"
       v-bind:resource="resourceName"
       v-bind:contentType="contentType"
@@ -217,8 +217,17 @@ export default class DatabasesView extends Vue {
 </script>
 
 <style scoped>
+.databases {
+  margin-top: 2em
+}
 .el-tree {
-  width: 40vw;
+  width: 25vw;
   float: left;
+}
+.right-side {
+  width: 50vw;
+  float: right;
+  height: 125px;
+  text-align: left;
 }
 </style>

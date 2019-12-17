@@ -1,6 +1,6 @@
 <template>
   <div class="block">
-    <div class="radio">
+    <div class="radio, space">
       Order:
       <el-radio-group v-model="reverse">
         <el-radio :label="true">descending</el-radio>
@@ -16,7 +16,7 @@
       >
         <el-card>
           <h4>{{ hist.commitMessage }}</h4>
-          <p>{{ hist.author }} committed {{ hist.revision }} on {{ hist.revisionTimestamp }}</p>
+          <p><em>{{ hist.author }}</em> committed <strong>revision {{ hist.revision }}</strong> on <em>{{ hist.revisionTimestamp }}</em></p>
         </el-card>
       </el-timeline-item>
     </el-timeline>
@@ -30,4 +30,7 @@ export default {
 </script>
 
 <style scoped>
+.space {
+  margin-bottom: 2em;
+}
 </style>

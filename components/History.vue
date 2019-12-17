@@ -23,7 +23,7 @@ export default {
           headers: { accept: `${this.contentType}` }
         })
         .then(res => {
-          return res.data.history;
+          return res.history;
         })
         .catch((e) => {
           console.log(e)
