@@ -41,6 +41,7 @@
       v-bind:options="fileUploadOptions"
       class="right-side"
       v-on:uploaded="addChildResource"
+      style="text-align: center"
     />
     <history
       v-if="showHistory"
