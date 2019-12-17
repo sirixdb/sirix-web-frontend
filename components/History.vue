@@ -18,9 +18,10 @@ export default {
 
   asyncComputed: {
     history() {
+      console.log(this.contentType);
       return this.$axios
-        .$get(`sirix/${this.database}/${this.resource}/history`, {
-          headers: { accept: `${this.contentType}` }
+        .$get(`sirix/${this.database}/${this.resource}/history`, {data: {}}, {
+          headers: { "accept": "application/json", "content-type": `${this.contentType}` }
         })
         .then(res => {
           return res.history;
