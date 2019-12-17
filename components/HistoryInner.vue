@@ -13,6 +13,7 @@
         v-for="(hist, index) in history"
         :key="index"
         :timestamp="hist.revisionTimestamp"
+        placement="top"
       >
         <el-card>
           <h4>{{ hist.commitMessage }}</h4>
