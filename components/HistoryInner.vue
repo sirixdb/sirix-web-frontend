@@ -10,14 +10,14 @@
 
     <el-timeline :reverse="reverse">
       <el-timeline-item
-        hide-timestamp="true"
+        placement="top"
         v-for="(hist, index) in history"
         :key="index"
         :timestamp="hist.revisionTimestamp"
       >
         <el-card>
-          <h4>{{ hist.commitMessage }}</h4>
-          <p><strong>{{ hist.author }}</strong> committed <strong>revision {{ hist.revision }}</strong> on <em>{{ hist.revisionTimestamp }}</em></p>
+          <h4>{{ hist.commitMessage || "No commit message" }}</h4>
+          <p><strong>{{ hist.author }}</strong> committed <strong><a href="">revision {{ hist.revision }}</a></strong> on <em>{{ hist.revisionTimestamp }}</em></p>
         </el-card>
       </el-timeline-item>
     </el-timeline>

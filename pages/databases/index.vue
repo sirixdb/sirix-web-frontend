@@ -35,7 +35,21 @@
     </el-dialog>
 
     <h3>Databases</h3>
-    <el-tree :data="databases" :props="defaultProps" @node-click="handleNodeClick" />
+    <el-tree :data="databases" :props="defaultProps">
+      <span class="custom-tree-node" slot-scope="{ node }">
+        <span @click="() => handleNodeClick(node)">{{ node.label }}</span>
+        <span>
+          <el-button
+            type="danger"
+            size="mini"
+            @click="() => handleNodeDelete(node)"
+            icon="el-icon-delete"
+            circle
+            title="Delete"
+          ></el-button>
+        </span>
+      </span>
+    </el-tree>
     <file-upload
       v-if="addResource"
       v-bind:options="fileUploadOptions"
@@ -48,7 +62,7 @@
       class="right-side"
       v-bind:database="databaseName"
       v-bind:resource="resourceName"
-      v-bind:contentType="contentType"
+      v-bind:accept="contentType"
       v-bind:reverse="true"
     />
   </div>
@@ -59,6 +73,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { JsonObj, JsonVal } from "vue-meta/types/vue-meta";
 import FileUpload from "@/components/FileUpload.vue";
 import History from "@/components/History.vue";
+import { TreeNode, TreeData } from 'element-ui/types/tree';
 
 @Component({
   components: {
@@ -77,55 +92,98 @@ export default class DatabasesView extends Vue {
   private databaseType = "";
   private contentType = "";
   private resourceName = "";
-  private currentlySelectedTreeNode: JsonObj = {};
+  private currentlySelectedTreeNode!: TreeNode<any, TreeData>;
   private databases: Array<JsonObj> = [];
   private defaultProps = this.databases;
   private addResource = false;
   private showHistory = false;
   private fileUploadOptions = {};
+  private id = 0;
 
   private addChildResource(formData: FormData) {
     formData.forEach(
       (value: FormDataEntryValue, key: string, parent: FormData) => {
-        let resourcesNode = this.currentlySelectedTreeNode
-          .children as JsonVal[];
-        let resourceNode: JsonObj = {};
-        resourceNode["label"] = key;
-        resourcesNode.push(resourceNode);
+        console.log(this.currentlySelectedTreeNode);
+        if (!this.currentlySelectedTreeNode.data.children) {
+          this.$set(this.currentlySelectedTreeNode.data, 'children', []);
+        }
+        const child = { id: this.id++, label: key, children: [] };
+        if (this.currentlySelectedTreeNode.data.children != undefined) {
+          this.currentlySelectedTreeNode.data.children.push(child);
+        }
       }
     );
   }
 
-  private handleNodeClick(treeNode: JsonObj) {
+  private handleNodeDelete(node: TreeNode<any, TreeData>) {
+    let path: string;
+
+    if (node.isLeaf && node.parent != undefined && node.level == 2) {
+      path = `${node.parent.label.substring(0, node.parent.label.indexOf("(") - 1)}/${
+        node.label
+      }`;
+    } else {
+      path = node.label.substring(0, node.label.indexOf("(") - 1);
+    }
+
+    this.$axios
+      .$delete(`/sirix/${path}`)
+      .then(val => {
+        const parent = node.parent;
+
+        if (parent != null) {
+          const children = parent.data.children as TreeData[];
+          const index = children.findIndex(d => d.id === node.data.id);
+          children.splice(index, 1);
+        }
+        console.log(val);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  private handleNodeClick(treeNode: TreeNode<any, TreeData>) {
+    if (treeNode == null)
+      return;
+
     this.currentlySelectedTreeNode = treeNode;
+    let label: string = treeNode.label;
+    let databaseType: string;
 
-    const label = treeNode.label as string;
-    const databaseType = label.substring(
-      label.indexOf("(") + 1,
-      label.indexOf(")")
-    );
-
-    if (!databaseType || databaseType.length == 0) {
+    if (treeNode.isLeaf && treeNode.level == 2) {
       this.addResource = false;
       this.showHistory = true;
       this.resourceName = label;
 
+      if (treeNode.parent != null) {
+        this.databaseName = treeNode.parent.label.substring(0, treeNode.parent.label.indexOf("(") - 1);
+        this.contentType = databaseType = treeNode.parent.label.substring(
+          treeNode.parent.label.indexOf("(") + 1,
+          treeNode.parent.label.indexOf(")")
+        );
+      }
+      
       return;
+    } else {
+      databaseType = label.substring(
+        label.indexOf("(") + 1,
+        label.indexOf(")")
+      );
+
+      let databaseName = label.substring(0, label.indexOf("(") - 1);
+
+      this.showHistory = false;
+      this.addResource = true;
+
+      if (databaseType == "json") this.contentType = "application/json";
+      else if (databaseType == "xml") this.contentType = "application/xml";
+
+      this.fileUploadOptions = {
+        url: `${this.$axios.defaults.baseURL}/sirix/${databaseName}`,
+        acceptedFiles: this.contentType
+      };
     }
-
-    this.databaseName = label.substring(0, label.indexOf("(") - 1);
-
-    this.showHistory = false;
-    this.addResource = true;
-    this.contentType = "";
-
-    if (databaseType == "json") this.contentType = "application/json";
-    else if (databaseType == "xml") this.contentType = "application/xml";
-
-    this.fileUploadOptions = {
-      url: `${this.$axios.defaults.baseURL}/sirix/${this.databaseName}`,
-      acceptedFiles: this.contentType
-    };
   }
 
   private getDatabases(): Promise<Array<JsonObj>> {
@@ -136,9 +194,11 @@ export default class DatabasesView extends Vue {
       .then((res: any) => {
         let databases: Array<JsonObj> = res["databases"];
         let treeData: Array<JsonObj> = [];
+
         databases.forEach((database: JsonObj) => {
           let databaseNode: JsonObj = {};
           databaseNode["label"] = `${database.name} (${database.type})`;
+          databaseNode["id"] = this.id++;
 
           let resources = database["resources"] as JsonVal[];
           let resourcesNode: JsonVal[] = [];
@@ -147,6 +207,7 @@ export default class DatabasesView extends Vue {
             resources.forEach((resource: JsonVal) => {
               let resourceNode: JsonObj = {};
               resourceNode["label"] = resource;
+              resourceNode["id"] = this.id++;
               resourcesNode.push(resourceNode);
             });
           }
@@ -154,6 +215,7 @@ export default class DatabasesView extends Vue {
           databaseNode["children"] = resourcesNode;
           treeData.push(databaseNode);
         });
+
         return Promise.resolve(this.sortDatabases(treeData));
       })
       .catch(() => {
@@ -219,7 +281,7 @@ export default class DatabasesView extends Vue {
 
 <style scoped>
 .databases {
-  margin-top: 2em
+  margin-top: 2em;
 }
 .el-tree {
   width: 25vw;

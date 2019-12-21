@@ -14,14 +14,15 @@ Vue.use(AsyncComputed)
 Vue.component('history-inner', HistoryInner);
 
 export default {
-  props: ["database", "resource", "contentType", "reverse"],
+  props: ["database", "resource", "accept", "reverse"],
 
   asyncComputed: {
     history() {
-      console.log(this.contentType);
+      console.log(this.accept);
+
       return this.$axios
         .$get(`sirix/${this.database}/${this.resource}/history`, {data: {}}, {
-          headers: { "accept": "application/json", "content-type": `${this.contentType}` }
+          headers: { "accept": `${this.accept}` }
         })
         .then(res => {
           return res.history;
