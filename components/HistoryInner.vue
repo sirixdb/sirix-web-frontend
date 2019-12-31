@@ -17,7 +17,16 @@
       >
         <el-card>
           <h4>{{ hist.commitMessage || "No commit message" }}</h4>
-          <p><strong>{{ hist.author }}</strong> committed <strong><a href="">revision {{ hist.revision }}</a></strong> on <em>{{ hist.revisionTimestamp }}</em></p>
+          <p>
+            <strong>{{ hist.author }}</strong> committed
+            <strong>
+              <el-button
+                type="text"
+                @click="() => $emit('revision', hist.revision)"
+              >revision {{ hist.revision }}</el-button>
+            </strong> on
+            <em>{{ hist.revisionTimestamp }}</em>
+          </p>
         </el-card>
       </el-timeline-item>
     </el-timeline>
@@ -26,7 +35,7 @@
 
 <script>
 export default {
-  props: ["reverse", "history"],
+  props: ["reverse", "history"]
 };
 </script>
 
