@@ -64,6 +64,14 @@
       v-bind:resource="resourceName"
       v-bind:accept="contentType"
       v-bind:reverse="true"
+      v-on:revision="getRevision"
+    />
+    <resource-tree
+    v-if="showRevision"
+    class="right-side"
+    v-bind:database="databaseName"
+    v-bind:resource="resourceName"
+    v-bind:revision="revisionNumber"
     />
   </div>
 </template>
@@ -73,12 +81,14 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { JsonObj, JsonVal } from "vue-meta/types/vue-meta";
 import FileUpload from "@/components/FileUpload.vue";
 import History from "@/components/History.vue";
-import { TreeNode, TreeData } from 'element-ui/types/tree';
+import ResourceTree from "@/components/ResourceTree.vue";
+import { TreeNode, TreeData } from "element-ui/types/tree";
 
 @Component({
   components: {
     FileUpload,
-    History
+    History,
+    ResourceTree
   }
 })
 export default class DatabasesView extends Vue {
@@ -97,6 +107,8 @@ export default class DatabasesView extends Vue {
   private defaultProps = this.databases;
   private addResource = false;
   private showHistory = false;
+  private showRevision = false;
+  private revisionNumber: number = NaN;
   private fileUploadOptions = {};
   private id = 0;
 
@@ -105,7 +117,7 @@ export default class DatabasesView extends Vue {
       (value: FormDataEntryValue, key: string, parent: FormData) => {
         console.log(this.currentlySelectedTreeNode);
         if (!this.currentlySelectedTreeNode.data.children) {
-          this.$set(this.currentlySelectedTreeNode.data, 'children', []);
+          this.$set(this.currentlySelectedTreeNode.data, "children", []);
         }
         const child = { id: this.id++, label: key, children: [] };
         if (this.currentlySelectedTreeNode.data.children != undefined) {
@@ -119,9 +131,10 @@ export default class DatabasesView extends Vue {
     let path: string;
 
     if (node.isLeaf && node.parent != undefined && node.level == 2) {
-      path = `${node.parent.label.substring(0, node.parent.label.indexOf("(") - 1)}/${
-        node.label
-      }`;
+      path = `${node.parent.label.substring(
+        0,
+        node.parent.label.indexOf("(") - 1
+      )}/${node.label}`;
     } else {
       path = node.label.substring(0, node.label.indexOf("(") - 1);
     }
@@ -144,8 +157,7 @@ export default class DatabasesView extends Vue {
   }
 
   private handleNodeClick(treeNode: TreeNode<any, TreeData>) {
-    if (treeNode == null)
-      return;
+    if (treeNode == null) return;
 
     this.currentlySelectedTreeNode = treeNode;
     let label: string = treeNode.label;
@@ -153,17 +165,21 @@ export default class DatabasesView extends Vue {
 
     if (treeNode.isLeaf && treeNode.level == 2) {
       this.addResource = false;
+      this.showRevision = false;
       this.showHistory = true;
       this.resourceName = label;
 
       if (treeNode.parent != null) {
-        this.databaseName = treeNode.parent.label.substring(0, treeNode.parent.label.indexOf("(") - 1);
+        this.databaseName = treeNode.parent.label.substring(
+          0,
+          treeNode.parent.label.indexOf("(") - 1
+        );
         this.contentType = databaseType = treeNode.parent.label.substring(
           treeNode.parent.label.indexOf("(") + 1,
           treeNode.parent.label.indexOf(")")
         );
       }
-      
+
       return;
     } else {
       databaseType = label.substring(
@@ -174,6 +190,7 @@ export default class DatabasesView extends Vue {
       let databaseName = label.substring(0, label.indexOf("(") - 1);
 
       this.showHistory = false;
+      this.showRevision = false;
       this.addResource = true;
 
       if (databaseType == "json") this.contentType = "application/json";
@@ -275,6 +292,17 @@ export default class DatabasesView extends Vue {
       .catch(e => {
         return false;
       });
+  }
+
+  private getRevision(
+    database: string,
+    resource: string,
+    revisionNumber: number
+  ) {
+    this.databaseName = database;
+    this.resourceName = resource;
+    this.showHistory = false;
+    this.showRevision = true;
   }
 }
 </script>
