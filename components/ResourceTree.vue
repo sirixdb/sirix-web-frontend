@@ -2,16 +2,15 @@
   <div>
     <tree :options="treeOptions">
       <span slot-scope="{ node }" class="viewer-item" :class="[node.data.type]">
-        <span v-if="node.hasChildren()" class="viewer-item__key">
+        <span v-if="node.data.type == 'object' || node.data.type == 'array'" class="viewer-item__key">
           {{ node.text }}
           <span v-if="node.collapsed()">
-            <template v-if="node.data.type == 'array'">[ {{ node.children.length }} ]</template>
-            <template v-else>{ {{ node.children.length }} }</template>
+            <template v-if="node.data.type == 'array'">[{{ node.children.length }}]</template>
+            <template v-else>{{"{" + node.children.length + "}"}}</template>
           </span>
         </span>
         <span v-else class="viewer-item__prop">
-          <span class="viewer-item__key">{{ node.text }}</span>
-          :
+          <span class="viewer-item__key">{{ node.text }}</span>:
           <span class="viewer-item__value">{{ node.data.objectKey }}</span>
         </span>
       </span>
