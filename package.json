@@ -33,7 +33,7 @@
     "sass-loader": "^8.0.0",
     "serialize-javascript": ">=2.1.1",
     "typescript": "^3.6.3",
-    "vue-async-computed": "^3.7.0",
+    "vue-async-computed": "^3.8.2",
     "vue-class-component": "^7.1.0",
     "vue-property-decorator": "^8.2.2"
   },
