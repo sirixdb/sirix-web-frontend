@@ -22,7 +22,7 @@
     "fibers": "^4.0.2",
     "fs": "0.0.1-security",
     "highlight.js": "^9.15.10",
-    "inversify-props": "^1.4.3",
+    "inversify-props": "^1.4.9",
     "liquor-tree": "^0.2.70",
     "mockjs": "^1.1.0",
     "node-sass": "^4.13.0",
