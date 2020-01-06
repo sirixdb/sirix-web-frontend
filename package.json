@@ -12,7 +12,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@nuxtjs/auth": "^4.8.4",
+    "@nuxtjs/auth": "^4.8.5",
     "@nuxtjs/axios": "^5.6.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/toast": "^3.3.0",
