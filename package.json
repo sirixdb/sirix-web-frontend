@@ -19,7 +19,7 @@
     "axios": "^0.19.0",
     "axios-debug-log": "^0.6.2",
     "element-ui": "^2.4.11",
-    "fibers": "^4.0.1",
+    "fibers": "^4.0.2",
     "fs": "0.0.1-security",
     "highlight.js": "^9.15.10",
     "inversify-props": "^1.4.3",
