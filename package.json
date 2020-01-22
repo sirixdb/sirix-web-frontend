@@ -16,7 +16,7 @@
     "@nuxtjs/axios": "^5.9.3",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/toast": "^3.3.0",
-    "axios": "^0.19.1",
+    "axios": "^0.19.2",
     "axios-debug-log": "^0.6.2",
     "element-ui": "^2.13.0",
     "fibers": "^4.0.2",
