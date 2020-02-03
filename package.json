@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@nuxtjs/auth": "^4.8.5",
-    "@nuxtjs/axios": "^5.9.3",
+    "@nuxtjs/axios": "^5.9.5",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/toast": "^3.3.0",
     "axios": "^0.19.2",
