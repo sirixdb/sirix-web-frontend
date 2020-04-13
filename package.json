@@ -29,7 +29,7 @@
     "nuxt": "^2.11.0",
     "reflect-metadata": "^0.1.13",
     "register-service-worker": "^1.6.2",
-    "sass": "^1.24.5",
+    "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
     "serialize-javascript": ">=2.1.1",
     "typescript": "^3.7.5",
